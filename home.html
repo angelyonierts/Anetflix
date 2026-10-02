@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Angel Netflix: películas, series, juegos, podcasts y música.">
+    <title>Angel Netflix</title>
+    <link rel="icon" href="assets/images/movieposter.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="app-page">
+    <p class="demo-notice">Demo estática para GitHub Pages: sin backend PHP/MySQL. El inicio de sesión y Mi lista se guardan solo en este navegador.</p>
+    <header class="site-header" id="site-header">
+        <div class="header-start">
+            <a class="netflix-logo" href="home.html" aria-label="Angel Netflix"><span>N</span><b>ANGEL NETFLIX</b></a>
+            <form class="search-box" id="search-form" role="search">
+                <button type="submit" aria-label="Buscar">⌕</button><input id="search-input" type="search" placeholder="Títulos, personas, géneros">
+            </form>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a class="active" href="#inicio">Inicio</a><a href="#series">Series</a><a href="#peliculas">Películas</a><a href="#juegos">Juegos</a><a href="#mi-netflix">Mi Netflix</a>
+            </nav>
+        </div>
+        <div class="header-actions">
+            <button class="header-icon" type="button" aria-label="Notificaciones">♢</button>
+            <details class="profile-menu"><summary><span class="avatar" id="profile-avatar">A</span><span class="profile-name" id="profile-name">Angel</span><span class="profile-chevron">⌄</span></summary><div class="profile-popover"><a href="#account">Cuenta</a><button id="logout-button" type="button">Cerrar sesión</button></div></details>
+        </div>
+    </header>
+
+    <main id="inicio">
+        <section class="hero" id="hero" style="--hero-image: url('https://image.tmdb.org/t/p/original/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg')">
+            <div class="hero-shade"></div>
+            <div class="hero-content">
+                <div class="hero-brand"><span class="hero-n">N</span><span>ANGEL NETFLIX</span></div>
+                <p class="hero-meta"><strong>SERIE</strong><span>Fantasía</span><span>2025</span><span>16+</span><span>HD</span></p>
+                <h1 id="hero-title">Stranger Things</h1>
+                <p class="hero-description" id="hero-description">Cuando un niño desaparece, un pueblo descubre secretos sobrenaturales.</p>
+                <div class="hero-actions"><button class="remember-button" id="hero-play" type="button" data-video="https://www.youtube.com/embed/soeHuQVpOOg"><span class="button-icon">🔔</span> Recordarme</button><button class="info-button" id="hero-info" type="button" data-title="Stranger Things" data-description="Cuando un niño desaparece, un pueblo descubre secretos sobrenaturales." data-image="https://image.tmdb.org/t/p/original/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg" data-video="https://www.youtube.com/embed/soeHuQVpOOg"><span class="button-icon info-icon">i</span> Más información</button></div>
+            </div>
+            <div class="hero-age">16+</div>
+        </section>
+
+        <div class="content-shell">
+            <p class="search-result" id="search-result" hidden></p>
+            <div id="content-rows"></div>
+        </div>
+    </main>
+
+    <footer class="site-footer"><p>¿Preguntas? Visita nuestro centro de ayuda.</p><div class="footer-links"><a href="#faq">Preguntas frecuentes</a><a href="#help">Centro de ayuda</a><a href="#terms">Términos de uso</a><a href="#privacy">Privacidad</a><a href="#cookies">Preferencias de cookies</a></div><p class="copyright">© 2026 Angel Netflix</p></footer>
+    <div class="detail-modal" id="detail-modal" aria-hidden="true"><div class="modal-panel"><button class="modal-close" type="button" aria-label="Cerrar">×</button><div class="modal-image" id="modal-image"></div><div class="modal-body"><p class="modal-kicker">ANGEL NETFLIX</p><h2 id="modal-title"></h2><p class="hero-meta"><strong>98% para ti</strong><span>2025</span><span>16+</span><span>HD</span></p><p id="modal-description"></p><button class="remember-button" id="modal-play" type="button"><span class="button-icon">▶</span> Reproducir</button></div></div></div>
+    <div class="video-modal" id="video-modal" aria-hidden="true"><div class="video-panel"><button class="modal-close" type="button" aria-label="Cerrar">×</button><iframe id="video-frame" title="Reproductor" allow="autoplay; fullscreen" allowfullscreen></iframe></div></div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
