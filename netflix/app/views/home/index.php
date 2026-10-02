@@ -2,10 +2,22 @@
 $baseUrl = $config['base_url'];
 $user = Auth::user() ?? ['name' => 'Angel'];
 $featured = $data['featured'];
+$resolveImageUrl = static function (string $image) use ($baseUrl): string {
+    if (preg_match('/^(https?:)?\/\//', $image) || str_starts_with($image, 'data:')) {
+        return $image;
+    }
+
+    $normalized = ltrim($image, './');
+    if (str_starts_with($normalized, 'imagenes/')) {
+        return $baseUrl . '/imagenes/' . basename($normalized);
+    }
+
+    return str_starts_with($image, '/') ? $image : $baseUrl . '/' . ltrim($image, '/');
+};
 $catalogJson = [];
 foreach ($data['categories'] as $category => $items) {
     foreach ($items as $item) {
-        $catalogJson[] = ['title' => $item['title'], 'description' => $item['description'], 'image' => $item['image'], 'video' => $item['video_url'], 'category' => $category];
+        $catalogJson[] = ['title' => $item['title'], 'description' => $item['description'], 'image' => $resolveImageUrl($item['image']), 'video' => $item['video_url'], 'category' => $category];
     }
 }
 ?>
@@ -16,7 +28,7 @@ foreach ($data['categories'] as $category => $items) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Angel Netflix: películas, series, juegos, podcasts y música.">
     <title><?= e($featured['title']) ?> | Angel Netflix</title>
-    <link rel="icon" href="<?= e($baseUrl) ?>/../imagenes/movieposter.jpg" type="image/jpeg">
+    <link rel="icon" href="<?= e($baseUrl) ?>/imagenes/movieposter.jpg" type="image/jpeg">
     <link rel="stylesheet" href="<?= e($baseUrl) ?>/assets/css/app.css">
 </head>
 <body class="app-page">
@@ -58,8 +70,8 @@ foreach ($data['categories'] as $category => $items) {
                         <button class="row-arrow row-arrow-left" type="button" aria-label="Anterior">‹</button>
                         <div class="cards">
                             <?php foreach ($items as $index => $item): ?>
-                                <article class="media-card" tabindex="0" style="--card-image: url('<?= e($item['image']) ?>')" data-id="<?= e((string) $item['id']) ?>" data-title="<?= e($item['title']) ?>" data-description="<?= e($item['description']) ?>" data-video="<?= e($item['video_url']) ?>" data-image="<?= e($item['image']) ?>">
-                                    <div class="ambient-light"></div><img src="<?= e($item['image']) ?>" alt="<?= e($item['title']) ?>" loading="lazy"><div class="card-preview" aria-hidden="true"></div>
+                                <article class="media-card" tabindex="0" style="--card-image: url('<?= e($resolveImageUrl($item['image'])) ?>')" data-id="<?= e((string) $item['id']) ?>" data-title="<?= e($item['title']) ?>" data-description="<?= e($item['description']) ?>" data-video="<?= e($item['video_url']) ?>" data-image="<?= e($resolveImageUrl($item['image'])) ?>">
+                                    <div class="ambient-light"></div><img src="<?= e($resolveImageUrl($item['image'])) ?>" alt="<?= e($item['title']) ?>" loading="lazy"><div class="card-preview" aria-hidden="true"></div>
                                     <div class="card-overlay"><div class="card-badges"><span><?= $index === 0 ? 'Nuevo episodio' : 'Recién agregado' ?></span><?php if ($index === 1): ?><span class="rank-badge">#1 en <?= e($category) ?></span><?php endif; ?></div><div class="card-actions"><button type="button" class="round-button card-play" aria-label="Reproducir">▶</button><button type="button" class="round-button card-list" aria-label="Añadir a Mi lista">＋</button><button type="button" class="round-button card-like" aria-label="Me gusta">♡</button><button type="button" class="round-button card-info" aria-label="Más información">⌄</button></div><h3><?= e($item['title']) ?></h3><p><span class="match">97% para ti</span><span>HD</span><span>2025</span></p><div class="progress-track"><span style="width: <?= $index === 0 ? '42' : '0' ?>%"></span></div></div>
                                 </article>
                             <?php endforeach; ?>
