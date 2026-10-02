@@ -6,7 +6,7 @@ $baseUrl = $config['base_url'];
 <html lang="es">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Iniciar sesión | <?= e($appName) ?></title><link rel="icon" href="<?= e($baseUrl) ?>/../imagenes/Login.jpg" type="image/jpeg"><link rel="stylesheet" href="<?= e($baseUrl) ?>/assets/css/app.css">
+    <title>Iniciar sesión | <?= e($appName) ?></title><link rel="icon" href="<?= e($baseUrl) ?>/imagenes/Login.jpg" type="image/jpeg"><link rel="stylesheet" href="<?= e($baseUrl) ?>/assets/css/app.css">
 </head>
 <body class="auth-page">
     <div class="auth-backdrop"></div>
