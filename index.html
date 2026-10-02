@@ -1,24 +1,38 @@
-<?php
-declare(strict_types=1);
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iniciar sesión | Angel Netflix</title>
+    <link rel="icon" href="assets/images/Login.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="auth-page">
+    <p class="demo-notice">Demo estática para GitHub Pages: el acceso y los datos se simulan en tu navegador con localStorage.</p>
+    <div class="auth-backdrop" aria-hidden="true"></div>
+    <header class="auth-header">
+        <a class="netflix-logo" href="index.html" aria-label="Angel Netflix"><span>N</span><b>ANGEL NETFLIX</b></a>
+    </header>
 
-require_once __DIR__ . '/../app/core/bootstrap.php';
+    <main class="auth-main">
+        <form class="login-card" id="login-form" novalidate>
+            <h1>Iniciar sesión</h1>
+            <div class="form-alert" id="login-alert" role="alert" hidden></div>
+            <label class="field"><span>Correo electrónico</span><input id="email" type="email" placeholder="Correo electrónico" autocomplete="email" required autofocus></label>
+            <label class="field"><span>Contraseña</span><input id="password" type="password" placeholder="Contraseña" autocomplete="current-password" minlength="6" required></label>
+            <button class="primary-button" type="submit">Iniciar sesión</button>
+            <div class="login-options"><label><input type="checkbox"> <span>Recuérdame</span></label><a href="#help">¿Necesitas ayuda?</a></div>
+            <p class="new-user">¿Primera vez en Angel Netflix? <a href="#signup">Suscríbete ahora.</a></p>
+            <p class="captcha-copy">Esta página está protegida por Google reCAPTCHA para comprobar que no eres un robot.</p>
+        </form>
+    </main>
 
-if (Auth::check()) {
-    header('Location: ' . $config['base_url'] . '/index.php');
-    exit;
-}
+    <footer class="auth-footer">
+        <p>¿Preguntas? Llama al 800-000-0000</p>
+        <div class="footer-links"><a href="#faq">Preguntas frecuentes</a><a href="#terms">Términos de uso</a><a href="#privacy">Privacidad</a><a href="#cookies">Preferencias de cookies</a></div>
+        <button class="language-button" type="button">Español ▾</button>
+    </footer>
 
-$errors = [];
-$email = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    try {
-        $database = Database::connection($config);
-        $result = (new AuthController(new User($database), $config['base_url'] . '/index.php'))->login($_POST);
-        $errors = $result['errors'];
-        $email = $result['email'];
-    } catch (Throwable $exception) {
-        $errors[] = 'No se pudo conectar con el servicio. Importa la base de datos e intenta de nuevo.';
-    }
-}
-
-require __DIR__ . '/../app/views/auth/login.php';
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
