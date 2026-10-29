@@ -1,94 +1,100 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Iniciar sesión | Anetflix</title>
+  <title>Iniciar sesión | Angel Netflix</title>
   <style>
-    :root { color-scheme: dark; font-family: Arial, Helvetica, sans-serif; }
+    :root { font-family: Arial, Helvetica, sans-serif; color: #fff; background: #141414; }
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; color: #fff; background: linear-gradient(120deg, rgba(0,0,0,.92), rgba(20,20,20,.68)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2000&q=85') center/cover; }
-    .card { width: min(92vw, 430px); padding: 42px 38px; border-radius: 8px; background: rgba(0,0,0,.78); box-shadow: 0 16px 50px rgba(0,0,0,.45); }
-    .brand { margin: 0 0 30px; color: #e50914; font-size: 2.2rem; letter-spacing: -.08em; font-weight: 800; }
-    h1 { margin: 0 0 24px; font-size: 1.8rem; }
-    label { display: block; margin: 16px 0 7px; color: #ddd; font-size: .9rem; }
-    input { width: 100%; padding: 14px; border: 1px solid #555; border-radius: 4px; outline: none; color: #fff; background: #333; font-size: 1rem; }
-    input:focus { border-color: #fff; }
-    button { width: 100%; margin-top: 26px; padding: 14px; border: 0; border-radius: 4px; color: #fff; background: #e50914; font-size: 1rem; font-weight: 700; cursor: pointer; }
-    button:hover { background: #f6121d; }
-    .message { min-height: 22px; margin: 14px 0 0; font-size: .9rem; }
-    .error { color: #ffb3b3; }
-    .success { color: #9af0b2; }
-    .hint { margin: 22px 0 0; color: #aaa; font-size: .82rem; line-height: 1.45; }
-    .logout { display: none; margin-top: 16px; background: #555; }
+    body { margin: 0; min-height: 100vh; background: #141414; }
+    .auth-page { position: relative; display: flex; flex-direction: column; min-height: 100vh; }
+    .auth-backdrop { position: fixed; inset: 0; z-index: 0; background: linear-gradient(90deg, rgba(0,0,0,.9), rgba(0,0,0,.52)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2000&q=85') center/cover; opacity: .8; }
+    .auth-header, .auth-main, .auth-footer { position: relative; z-index: 1; }
+    .auth-header { padding: 24px 5%; }
+    .netflix-logo { display: inline-flex; align-items: center; gap: 10px; color: #e50914; text-decoration: none; font-size: 1.45rem; font-weight: 800; letter-spacing: .02em; }
+    .netflix-logo span { font-size: 2.5rem; line-height: .8; font-weight: 900; }
+    .netflix-logo b { font-size: 1.05rem; }
+    .auth-main { display: grid; flex: 1; place-items: center; padding: 30px 20px 70px; }
+    .login-card { width: min(100%, 450px); padding: 48px 58px 42px; border-radius: 4px; background: rgba(0,0,0,.78); }
+    h1 { margin: 0 0 26px; font-size: 2rem; }
+    .field { display: block; margin: 16px 0; }
+    .field span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+    input[type="email"], input[type="password"], input[type="text"] { width: 100%; padding: 16px; border: 0; border-radius: 4px; color: #fff; background: #333; font-size: 1rem; outline: none; }
+    input:focus { box-shadow: 0 0 0 2px #fff; }
+    .primary-button { width: 100%; margin-top: 14px; padding: 15px; border: 0; border-radius: 4px; color: #fff; background: #e50914; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .primary-button:hover { background: #f6121d; }
+    .login-options { display: flex; justify-content: space-between; gap: 12px; margin-top: 13px; color: #b3b3b3; font-size: .82rem; }
+    .login-options label { display: flex; gap: 5px; align-items: center; }
+    a { color: #b3b3b3; text-decoration: none; }
+    a:hover { color: #fff; text-decoration: underline; }
+    .new-user { margin: 48px 0 16px; color: #737373; }
+    .new-user a { color: #fff; }
+    .captcha-copy { color: #8c8c8c; font-size: .75rem; line-height: 1.4; }
+    .auth-intro { color: #b3b3b3; margin-top: -12px; }
+    .auth-back-link { display: inline-block; margin-bottom: 24px; color: #fff; }
+    .form-alert { margin: 0 0 16px; padding: 12px; border-radius: 4px; color: #d7ffd9; background: rgba(35, 130, 55, .35); font-size: .86rem; line-height: 1.35; }
+    .form-alert.error { color: #ffd2d2; background: rgba(170, 35, 35, .45); }
+    .auth-footer { padding: 24px 5% 34px; color: #737373; background: rgba(0,0,0,.72); }
+    .auth-footer p { margin: 0 0 22px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px 30px; font-size: .8rem; }
+    .language-button { margin-top: 24px; padding: 10px 16px; border: 1px solid #737373; border-radius: 3px; color: #b3b3b3; background: #000; cursor: pointer; }
+    @media (max-width: 600px) { .login-card { padding: 36px 26px; } .auth-header { padding: 20px 24px; } .auth-footer { padding: 24px; } }
   </style>
 </head>
-<body>
-  <main class="card">
-    <p class="brand">ANETFLIX</p>
-    <section id="login-view">
+<body class="auth-page">
+  <div class="auth-backdrop"></div>
+  <header class="auth-header"><a class="netflix-logo" href="#login" aria-label="Angel Netflix"><span>N</span><b>ANGEL NETFLIX</b></a></header>
+  <main class="auth-main">
+    <form class="login-card auth-screen" id="login-form" data-screen="login">
       <h1>Iniciar sesión</h1>
-      <form id="login-form" novalidate>
-        <label for="email">Correo electrónico</label>
-        <input id="email" name="email" type="email" autocomplete="email" required placeholder="nombre@ejemplo.com">
-        <label for="password">Contraseña</label>
-        <input id="password" name="password" type="password" autocomplete="current-password" minlength="6" required placeholder="Tu contraseña">
-        <button type="submit">Iniciar sesión</button>
-      </form>
-      <p id="message" class="message" role="alert"></p>
-      <p class="hint">Modo provisional para GitHub Pages: la validación se realiza únicamente en este navegador. El backend se conectará más adelante.</p>
-    </section>
-    <section id="welcome-view" hidden>
-      <h1>¡Bienvenido!</h1>
-      <p id="welcome-message" class="success"></p>
-      <button id="logout" class="logout" type="button">Cerrar sesión</button>
-    </section>
+      <div class="form-alert" id="login-alert" role="alert" hidden></div>
+      <label class="field"><span>Correo electrónico</span><input type="email" name="email" placeholder="Correo electrónico" autocomplete="email" required autofocus></label>
+      <label class="field"><span>Contraseña</span><input type="password" name="password" placeholder="Contraseña" autocomplete="current-password" minlength="6" required></label>
+      <button class="primary-button" type="submit">Iniciar sesión</button>
+      <div class="login-options"><label><input type="checkbox" name="remember"> <span>Recuérdame</span></label><a href="#forgot-password">¿Necesitas ayuda?</a></div>
+      <p class="new-user">¿Primera vez en Angel Netflix? <a href="#signup">Suscríbete ahora.</a></p><p class="captcha-copy">Esta es una demostración estática. La conexión con el backend se añadirá más adelante.</p>
+    </form>
+    <form class="login-card auth-screen" id="signup-form" data-screen="signup" hidden>
+      <a class="auth-back-link" href="#login">← Volver a iniciar sesión</a><h1>Crear cuenta</h1><p class="auth-intro">Disfruta de películas, series y mucho más.</p>
+      <div class="form-alert" id="signup-alert" role="alert" hidden></div>
+      <label class="field"><span>Nombre</span><input type="text" name="name" placeholder="Nombre" autocomplete="name" required></label>
+      <label class="field"><span>Correo electrónico</span><input type="email" name="email" placeholder="Correo electrónico" autocomplete="email" required></label>
+      <label class="field"><span>Contraseña</span><input type="password" name="password" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="new-password" minlength="6" required></label>
+      <button class="primary-button" type="submit">Registrarme</button><p class="captcha-copy">La cuenta se guardará únicamente en este navegador durante esta demostración.</p>
+    </form>
+    <form class="login-card auth-screen" id="forgot-password-form" data-screen="forgot-password" hidden>
+      <a class="auth-back-link" href="#login">← Volver a iniciar sesión</a><h1>¿Has olvidado tu contraseña?</h1><p class="auth-intro">Te enviaremos un enlace para restablecerla.</p>
+      <div class="form-alert" id="forgot-alert" role="alert" hidden></div>
+      <label class="field"><span>Correo electrónico</span><input type="email" name="email" placeholder="Correo electrónico" autocomplete="email" required></label>
+      <button class="primary-button" type="submit">Enviar enlace</button><p class="captcha-copy">Esta función estará disponible cuando se conecte el backend.</p>
+    </form>
   </main>
+  <footer class="auth-footer"><p>¿Preguntas? Estamos preparando la conexión del servicio.</p><div class="footer-links"><a href="#faq">Preguntas frecuentes</a><a href="#terms">Términos de uso</a><a href="#privacy">Privacidad</a><a href="#cookies">Preferencias de cookies</a></div><button class="language-button" type="button">Español ▾</button></footer>
   <script>
+    const screens = document.querySelectorAll('.auth-screen');
     const sessionKey = 'anetflix-session';
-    const loginView = document.getElementById('login-view');
-    const welcomeView = document.getElementById('welcome-view');
-    const welcomeMessage = document.getElementById('welcome-message');
-    const logoutButton = document.getElementById('logout');
-    const message = document.getElementById('message');
-
-    function showSession(email) {
-      loginView.hidden = true;
-      welcomeView.hidden = false;
-      logoutButton.style.display = 'block';
-      welcomeMessage.textContent = `Sesión iniciada como ${email}.`;
+    function showScreen() {
+      const requestedScreen = window.location.hash.slice(1) || 'login';
+      const activeScreen = [...screens].some((screen) => screen.dataset.screen === requestedScreen) ? requestedScreen : 'login';
+      screens.forEach((screen) => { screen.hidden = screen.dataset.screen !== activeScreen; });
     }
-
-    const savedEmail = localStorage.getItem(sessionKey);
-    if (savedEmail) showSession(savedEmail);
-
-    document.getElementById('login-form').addEventListener('submit', (event) => {
-      event.preventDefault();
-      message.textContent = '';
-      message.className = 'message';
-      const form = event.currentTarget;
-      const email = form.email.value.trim();
-      const password = form.password.value;
-      if (!email || !form.email.validity.valid) {
-        message.textContent = 'Escribe un correo electrónico válido.';
-        message.className = 'message error';
-        return;
-      }
-      if (password.length < 6) {
-        message.textContent = 'La contraseña debe tener al menos 6 caracteres.';
-        message.className = 'message error';
-        return;
-      }
-      localStorage.setItem(sessionKey, email);
-      showSession(email);
+    function showAlert(id, text, error = false) {
+      const alert = document.querySelector(id); alert.textContent = text; alert.hidden = false; alert.classList.toggle('error', error);
+    }
+    window.addEventListener('hashchange', showScreen); showScreen();
+    document.querySelector('#login-form').addEventListener('submit', function (event) {
+      event.preventDefault(); if (!this.reportValidity()) return;
+      localStorage.setItem(sessionKey, this.email.value.trim());
+      showAlert('#login-alert', 'Sesión iniciada correctamente en modo demostración.');
     });
-
-    logoutButton.addEventListener('click', () => {
-      localStorage.removeItem(sessionKey);
-      welcomeView.hidden = true;
-      loginView.hidden = false;
-      document.getElementById('login-form').reset();
-      document.getElementById('email').focus();
+    document.querySelector('#signup-form').addEventListener('submit', function (event) {
+      event.preventDefault(); if (!this.reportValidity()) return;
+      showAlert('#login-alert', 'Tu cuenta se creó correctamente. Ya puedes iniciar sesión.'); window.location.hash = 'login';
+    });
+    document.querySelector('#forgot-password-form').addEventListener('submit', function (event) {
+      event.preventDefault(); if (!this.reportValidity()) return;
+      showAlert('#forgot-alert', 'La recuperación estará disponible cuando se conecte el backend.');
     });
   </script>
 </body>
