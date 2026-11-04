@@ -41,6 +41,8 @@
     .language-button { margin-top: 24px; padding: 10px 16px; border: 1px solid #737373; border-radius: 3px; color: #b3b3b3; background: #000; cursor: pointer; }
     @media (max-width: 600px) { .login-card { padding: 36px 26px; } .auth-header { padding: 20px 24px; } .auth-footer { padding: 24px; } }
   </style>
+  <!-- SDK de Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="auth-page">
   <div class="auth-backdrop"></div>
@@ -53,7 +55,7 @@
       <label class="field"><span>Contraseña</span><input type="password" name="password" placeholder="Contraseña" autocomplete="current-password" minlength="6" required></label>
       <button class="primary-button" type="submit">Iniciar sesión</button>
       <div class="login-options"><label><input type="checkbox" name="remember"> <span>Recuérdame</span></label><a href="#forgot-password">¿Necesitas ayuda?</a></div>
-      <p class="new-user">¿Primera vez en Angel Netflix? <a href="#signup">Suscríbete ahora.</a></p><p class="captcha-copy">Esta es una demostración estática. La conexión con el backend se añadirá más adelante.</p>
+      <p class="new-user">¿Primera vez en Angel Netflix? <a href="#signup">Suscríbete ahora.</a></p><p class="captcha-copy">Conectado de manera segura con Supabase.</p>
     </form>
     <form class="login-card auth-screen" id="signup-form" data-screen="signup" hidden>
       <a class="auth-back-link" href="#login">← Volver a iniciar sesión</a><h1>Crear cuenta</h1><p class="auth-intro">Disfruta de películas, series y mucho más.</p>
@@ -61,40 +63,114 @@
       <label class="field"><span>Nombre</span><input type="text" name="name" placeholder="Nombre" autocomplete="name" required></label>
       <label class="field"><span>Correo electrónico</span><input type="email" name="email" placeholder="Correo electrónico" autocomplete="email" required></label>
       <label class="field"><span>Contraseña</span><input type="password" name="password" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="new-password" minlength="6" required></label>
-      <button class="primary-button" type="submit">Registrarme</button><p class="captcha-copy">La cuenta se guardará únicamente en este navegador durante esta demostración.</p>
+      <button class="primary-button" type="submit">Registrarme</button><p class="captcha-copy">Tu cuenta se registrará en la base de datos de Supabase.</p>
     </form>
     <form class="login-card auth-screen" id="forgot-password-form" data-screen="forgot-password" hidden>
       <a class="auth-back-link" href="#login">← Volver a iniciar sesión</a><h1>¿Has olvidado tu contraseña?</h1><p class="auth-intro">Te enviaremos un enlace para restablecerla.</p>
       <div class="form-alert" id="forgot-alert" role="alert" hidden></div>
       <label class="field"><span>Correo electrónico</span><input type="email" name="email" placeholder="Correo electrónico" autocomplete="email" required></label>
-      <button class="primary-button" type="submit">Enviar enlace</button><p class="captcha-copy">Esta función estará disponible cuando se conecte el backend.</p>
+      <button class="primary-button" type="submit">Enviar enlace</button><p class="captcha-copy">Se enviarán instrucciones de recuperación a tu correo.</p>
     </form>
   </main>
-  <footer class="auth-footer"><p>¿Preguntas? Estamos preparando la conexión del servicio.</p><div class="footer-links"><a href="#faq">Preguntas frecuentes</a><a href="#terms">Términos de uso</a><a href="#privacy">Privacidad</a><a href="#cookies">Preferencias de cookies</a></div><button class="language-button" type="button">Español ▾</button></footer>
+  <footer class="auth-footer"><p>¿Preguntas? Estamos listos para el streaming.</p><div class="footer-links"><a href="#faq">Preguntas frecuentes</a><a href="#terms">Términos de uso</a><a href="#privacy">Privacidad</a><a href="#cookies">Preferencias de cookies</a></div><button class="language-button" type="button">Español ▾</button></footer>
+
   <script>
+    // Configuración de Supabase (Reemplaza con tus credenciales de tu proyecto)
+    const SUPABASE_URL = 'TU_SUPABASE_URL';
+    const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY';
+
+    const { createClient } = supabase;
+    const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     const screens = document.querySelectorAll('.auth-screen');
-    const sessionKey = 'anetflix-session';
+
     function showScreen() {
       const requestedScreen = window.location.hash.slice(1) || 'login';
       const activeScreen = [...screens].some((screen) => screen.dataset.screen === requestedScreen) ? requestedScreen : 'login';
       screens.forEach((screen) => { screen.hidden = screen.dataset.screen !== activeScreen; });
     }
+
     function showAlert(id, text, error = false) {
-      const alert = document.querySelector(id); alert.textContent = text; alert.hidden = false; alert.classList.toggle('error', error);
+      const alert = document.querySelector(id); 
+      alert.textContent = text; 
+      alert.hidden = false; 
+      alert.classList.toggle('error', error);
     }
-    window.addEventListener('hashchange', showScreen); showScreen();
-    document.querySelector('#login-form').addEventListener('submit', function (event) {
-      event.preventDefault(); if (!this.reportValidity()) return;
-      localStorage.setItem(sessionKey, this.email.value.trim());
-      showAlert('#login-alert', 'Sesión iniciada correctamente en modo demostración.');
+
+    window.addEventListener('hashchange', showScreen); 
+    showScreen();
+
+    // Lógica de Inicio de Sesión
+    document.querySelector('#login-form').addEventListener('submit', async function (event) {
+      event.preventDefault(); 
+      if (!this.reportValidity()) return;
+
+      const email = this.email.value.trim();
+      const password = this.password.value.trim();
+
+      showAlert('#login-alert', 'Iniciando sesión...');
+
+      const { data, error } = await _supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        showAlert('#login-alert', `Error: ${error.message}`, true);
+      } else {
+        showAlert('#login-alert', '¡Inicio de sesión exitoso! Redirigiendo...');
+        // Opcional: Redirigir a tu panel o página principal tras iniciar sesión
+        // setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+      }
     });
-    document.querySelector('#signup-form').addEventListener('submit', function (event) {
-      event.preventDefault(); if (!this.reportValidity()) return;
-      showAlert('#login-alert', 'Tu cuenta se creó correctamente. Ya puedes iniciar sesión.'); window.location.hash = 'login';
+
+    // Lógica de Registro
+    document.querySelector('#signup-form').addEventListener('submit', async function (event) {
+      event.preventDefault(); 
+      if (!this.reportValidity()) return;
+
+      const name = this.name.value.trim();
+      const email = this.email.value.trim();
+      const password = this.password.value.trim();
+
+      showAlert('#signup-alert', 'Registrando cuenta...');
+
+      const { data, error } = await _supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            full_name: name
+          }
+        }
+      });
+
+      if (error) {
+        showAlert('#signup-alert', `Error al registrar: ${error.message}`, true);
+      } else {
+        showAlert('#signup-alert', '¡Cuenta creada con éxito! Revisa tu correo si requiere confirmación o inicia sesión.');
+        setTimeout(() => { window.location.hash = 'login'; }, 2000);
+      }
     });
-    document.querySelector('#forgot-password-form').addEventListener('submit', function (event) {
-      event.preventDefault(); if (!this.reportValidity()) return;
-      showAlert('#forgot-alert', 'La recuperación estará disponible cuando se conecte el backend.');
+
+    // Lógica de Recuperación de Contraseña
+    document.querySelector('#forgot-password-form').addEventListener('submit', async function (event) {
+      event.preventDefault(); 
+      if (!this.reportValidity()) return;
+
+      const email = this.email.value.trim();
+
+      showAlert('#forgot-alert', 'Enviando enlace de recuperación...');
+
+      const { data, error } = await _supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin, // O la URL de tu página de restablecimiento
+      });
+
+      if (error) {
+        showAlert('#forgot-alert', `Error: ${error.message}`, true);
+      } else {
+        showAlert('#forgot-alert', 'Se ha enviado un enlace a tu correo para restablecer la contraseña.');
+      }
     });
   </script>
 </body>
