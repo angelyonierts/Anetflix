@@ -74,13 +74,14 @@
   </main>
   <footer class="auth-footer"><p>¿Preguntas? Estamos listos para el streaming.</p><div class="footer-links"><a href="#faq">Preguntas frecuentes</a><a href="#terms">Términos de uso</a><a href="#privacy">Privacidad</a><a href="#cookies">Preferencias de cookies</a></div><button class="language-button" type="button">Español ▾</button></footer>
 
-  <script>
-    // Configuración de Supabase (Reemplaza con tus credenciales de tu proyecto)
+<script>
+    // Configuración de Supabase
     const SUPABASE_URL = 'https://fqozhdfylzqxqeegzodg.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable__ah7bjBZfSpB9w2kTjgoGQ_Mn5YTYFi';
 
     const { createClient } = supabase;
-    const _supabase = createClient(https://fqozhdfylzqxqeegzodg.supabase.co, sb_publishable__ah7bjBZfSpB9w2kTjgoGQ_Mn5YTYFi);
+    // CORRECCIÓN: Se agregaron las comillas que faltaban para que sean strings válidos
+    const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const screens = document.querySelectorAll('.auth-screen');
 
@@ -163,7 +164,7 @@
       showAlert('#forgot-alert', 'Enviando enlace de recuperación...');
 
       const { data, error } = await _supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin, // O la URL de tu página de restablecimiento
+        redirectTo: window.location.origin,
       });
 
       if (error) {
