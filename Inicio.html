@@ -7,6 +7,155 @@
     <title>Angel Netflix</title>
 
     <link rel="stylesheet" href="assets/css/app.css">
+
+    <style>
+        .tmdb-section {
+            margin: 0;
+            padding: 2rem 4% 2.5rem;
+            background: #141414;
+        }
+
+        .tmdb-heading-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tmdb-heading-row h2 {
+            flex: 1 1 260px;
+            margin: 0;
+            color: #fff;
+            font-size: 1.35rem;
+        }
+
+        .tmdb-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+        }
+
+        .tmdb-chip {
+            padding: .48rem .85rem;
+            border: 1px solid #555;
+            border-radius: 999px;
+            color: #eee;
+            background: #181818;
+            transition: border-color 180ms ease, background 180ms ease;
+        }
+
+        .tmdb-chip:hover,
+        .tmdb-chip.is-active {
+            border-color: #fff;
+            background: #333;
+        }
+
+        #tmdb-recommendations {
+            display: flex;
+            gap: .75rem;
+            overflow-x: auto;
+            padding-bottom: .75rem;
+            scrollbar-width: thin;
+            scrollbar-color: #555 #181818;
+        }
+
+        .tmdb-card {
+            flex: 0 0 180px;
+            overflow: hidden;
+            border-radius: 4px;
+            background: #181818;
+            cursor: pointer;
+            transition: transform 180ms ease;
+        }
+
+        .tmdb-card:hover,
+        .tmdb-card:focus {
+            transform: scale(1.04);
+            outline: 2px solid #fff;
+        }
+
+        .tmdb-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            background: #181818;
+        }
+
+        .tmdb-card h3 {
+            min-height: 3.2em;
+            margin: 0;
+            padding: .65rem;
+            color: #fff;
+            font-size: .85rem;
+            line-height: 1.35;
+        }
+
+        .tmdb-status {
+            width: 100%;
+            margin: 1.5rem 0;
+            color: #b3b3b3;
+        }
+
+        #tmdb-video-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, .88);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 180ms ease;
+        }
+
+        #tmdb-video-modal.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .tmdb-video-panel {
+            position: relative;
+            width: min(950px, 95vw);
+            padding: 1rem;
+            border-radius: 5px;
+            background: #181818;
+        }
+
+        #tmdb-close-modal {
+            position: absolute;
+            top: .65rem;
+            right: .65rem;
+            z-index: 2;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: #fff;
+            background: #181818;
+            font-size: 1.7rem;
+            line-height: 1;
+        }
+
+        #tmdb-video-frame {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: 0;
+            background: #000;
+        }
+
+        @media (max-width: 760px) {
+            .tmdb-section {
+                padding-inline: 1rem;
+            }
+
+            .tmdb-card {
+                flex-basis: 140px;
+            }
+        }
+    </style>
 </head>
 
 <body class="app-page">
@@ -96,6 +245,19 @@
         </section>
 
         <div class="content-shell" id="catalog"></div>
+
+        <section class="tmdb-section">
+            <div class="tmdb-heading-row">
+                <h2 id="tmdb-heading">Quizás te pueda gustar</h2>
+                <div class="tmdb-chips" aria-label="Filtrar recomendaciones">
+                    <button type="button" class="tmdb-chip" data-movie="569094">Animación</button>
+                    <button type="button" class="tmdb-chip" data-movie="157336">Ciencia Ficción</button>
+                    <button type="button" class="tmdb-chip" data-movie="299536">Acción</button>
+                    <button type="button" class="tmdb-chip" data-movie="496243">Suspenso</button>
+                </div>
+            </div>
+            <div id="tmdb-recommendations"></div>
+        </section>
     </main>
 
     <footer class="site-footer">
@@ -156,7 +318,20 @@
         </div>
     </div>
 
+    <div id="tmdb-video-modal" aria-hidden="true">
+        <div class="tmdb-video-panel">
+            <button id="tmdb-close-modal" type="button" aria-label="Cerrar">×</button>
+            <iframe
+                id="tmdb-video-frame"
+                title="Trailer de película"
+                allow="autoplay; fullscreen"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
     <script src="assets/js/catalog.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/tmdb.js"></script>
 </body>
 </html>
