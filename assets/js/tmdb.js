@@ -3,157 +3,118 @@ const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 const TMDB_IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
 async function cargarSugerencias(movieId = 569094, tituloBase = '') {
-    const contenedor = document.querySelector('#tmdb-recommendations');
-    const encabezado = document.querySelector('#tmdb-heading');
-
+    const contenedor = document.getElementById('tmdb-recommendations');
+    const encabezado = document.getElementById('tmdb-heading');
     if (!contenedor) return;
 
-    if (encabezado) {
-        encabezado.textContent = tituloBase
-            ? `Porque viste "${tituloBase}"`
-            : 'Quizás te pueda gustar';
-    }
-
-    contenedor.innerHTML = '<p class="tmdb-status">Cargando recomendaciones...</p>';
+    contenedor.innerHTML = '<p style="color:#b3b3b3;">Cargando sugerencias...</p>';
 
     try {
-        const respuesta = await fetch(
-            `${TMDB_BASE_URL}/movie/${movieId}/recommendations?api_key=${TMDB_API_KEY}&language=es-MX&page=1`
-        );
+        const url = `${TMDB_BASE_URL}/movie/${movieId}/recommendations?api_key=${TMDB_API_KEY}&language=es-MX&page=1`;
+        const res = await fetch(url);
 
-        if (!respuesta.ok) throw new Error(`TMDB respondió con ${respuesta.status}`);
+        if (!res.ok) {
+            throw new Error(`HTTP ${res.status} - ${res.statusText}`);
+        }
 
-        const datos = await respuesta.json();
-        const peliculas = (datos.results || []).slice(0, 12);
+        const data = await res.json();
 
-        if (peliculas.length === 0) {
-            contenedor.innerHTML = '<p class="tmdb-status">No encontramos recomendaciones disponibles.</p>';
+        if (!data.results || data.results.length === 0) {
+            contenedor.innerHTML = '<p style="color:#b3b3b3;">No se encontraron sugerencias para este título.</p>';
             return;
         }
 
-        contenedor.replaceChildren();
+        if (tituloBase && encabezado) {
+            encabezado.textContent = `Porque viste "${tituloBase}"`;
+        }
 
-        peliculas.forEach((pelicula) => {
-            const tarjeta = document.createElement('article');
-            const poster = pelicula.poster_path
-                ? `${TMDB_IMG_URL}${pelicula.poster_path}`
+        contenedor.innerHTML = data.results.slice(0, 12).map(peli => {
+            const poster = peli.poster_path
+                ? `${TMDB_IMG_URL}${peli.poster_path}`
                 : 'imagenes/movieposter.jpg';
+            const anio = peli.release_date ? peli.release_date.slice(0, 4) : '2025';
+            const tituloSeguro = (peli.title || 'Sin título').replace(/"/g, '&quot;');
 
-            tarjeta.className = 'tmdb-card';
-            tarjeta.tabIndex = 0;
-            tarjeta.setAttribute('role', 'button');
-            tarjeta.setAttribute('aria-label', `Ver recomendaciones de ${pelicula.title || 'esta película'}`);
+            return `
+                <article class="tmdb-card" data-id="${peli.id}" data-title="${tituloSeguro}"
+                    style="min-width: 175px; max-width: 175px; background: #181818; border-radius: 6px; overflow: hidden; cursor: pointer; transition: transform .2s ease;">
+                    <img src="${poster}" alt="${tituloSeguro}" loading="lazy"
+                        style="width: 100%; height: 250px; object-fit: cover; display: block;">
+                    <div style="padding: 10px;">
+                        <h3 style="color: #fff; font-size: .92rem; margin: 0 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            ${peli.title}
+                        </h3>
+                        <div style="display: flex; justify-content: space-between; font-size: .78rem; color: #b3b3b3;">
+                            <span style="color: #46d369; font-weight: bold;">⭐ ${Number(peli.vote_average || 0).toFixed(1)}</span>
+                            <span>${anio}</span>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }).join('');
 
-            const imagen = document.createElement('img');
-            imagen.src = poster;
-            imagen.alt = pelicula.title || 'Película';
-            imagen.loading = 'lazy';
+        contenedor.querySelectorAll('.tmdb-card').forEach(card => {
+            card.addEventListener('mouseenter', () => card.style.transform = 'scale(1.04)');
+            card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
 
-            const titulo = document.createElement('h3');
-            titulo.textContent = pelicula.title || 'Título no disponible';
-
-            tarjeta.append(imagen, titulo);
-
-            const seleccionar = () => {
-                reproducirTrailerTMDB(pelicula.id);
-                cargarSugerencias(pelicula.id, pelicula.title || tituloBase);
-            };
-
-            tarjeta.addEventListener('click', seleccionar);
-            tarjeta.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    seleccionar();
-                }
+            card.addEventListener('click', () => {
+                const id = card.dataset.id;
+                const titulo = card.dataset.title;
+                reproducirTrailerTMDB(id);
+                cargarSugerencias(id, titulo);
             });
-
-            contenedor.appendChild(tarjeta);
         });
+
     } catch (error) {
-        contenedor.innerHTML = '<p class="tmdb-status">No se pudieron cargar las recomendaciones.</p>';
-        console.error('Error al cargar recomendaciones TMDB:', error);
+        console.error('Error detallado de TMDB:', error);
+        contenedor.innerHTML = `<p style="color:#ff6b6b;">Error al cargar recomendaciones (${error.message}).</p>`;
     }
-}
-
-async function buscarTrailerTMDB(movieId, language) {
-    const respuesta = await fetch(
-        `${TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${TMDB_API_KEY}&language=${language}`
-    );
-
-    if (!respuesta.ok) throw new Error(`TMDB respondió con ${respuesta.status}`);
-
-    const datos = await respuesta.json();
-    return (datos.results || []).find((video) =>
-        video.site === 'YouTube' &&
-        ['Trailer', 'Teaser'].includes(video.type)
-    );
 }
 
 async function reproducirTrailerTMDB(movieId) {
-    const modal = document.querySelector('#tmdb-video-modal');
-    const frame = document.querySelector('#tmdb-video-frame');
-
-    if (!modal || !frame) return;
-
-    let video;
+    const modal = document.getElementById('tmdb-video-modal');
+    const iframe = document.getElementById('tmdb-video-frame');
+    if (!modal || !iframe) return;
 
     try {
-        video = await buscarTrailerTMDB(movieId, 'es-MX');
+        let res = await fetch(`${TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${TMDB_API_KEY}&language=es-MX`);
+        let data = await res.json();
+        let video = (data.results || []).find(v => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser'));
+
+        if (!video) {
+            res = await fetch(`${TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${TMDB_API_KEY}&language=en-US`);
+            data = await res.json();
+            video = (data.results || []).find(v => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser'));
+        }
+
+        if (video) {
+            iframe.src = `https://www.youtube.com/embed/${video.key}?autoplay=1`;
+            modal.style.display = 'flex';
+        } else {
+            alert('Este título no tiene tráiler disponible en YouTube.');
+        }
     } catch (error) {
-        console.error('No se pudo consultar el trailer en español:', error);
+        console.error('Error al cargar el video:', error);
     }
-
-    if (!video) {
-        try {
-            video = await buscarTrailerTMDB(movieId, 'en-US');
-        } catch (error) {
-            console.error('No se pudo consultar el trailer en inglés:', error);
-        }
-    }
-
-    if (!video) return;
-
-    frame.src = `https://www.youtube.com/embed/${video.key}?autoplay=1`;
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
 }
 
-function inicializarTMDB() {
-    document.querySelectorAll('.tmdb-chip').forEach((chip) => {
-        chip.addEventListener('click', () => {
-            document.querySelectorAll('.tmdb-chip').forEach((item) => {
-                item.classList.remove('is-active');
-            });
-            chip.classList.add('is-active');
-            cargarSugerencias(Number(chip.dataset.movie), '');
-        });
-    });
-
-    const cerrar = document.querySelector('#tmdb-close-modal');
-    const modal = document.querySelector('#tmdb-video-modal');
-    const frame = document.querySelector('#tmdb-video-frame');
-
-    cerrar?.addEventListener('click', () => {
-        if (frame) frame.src = '';
-        if (modal) {
-            modal.classList.remove('is-open');
-            modal.setAttribute('aria-hidden', 'true');
+document.querySelectorAll('.tmdb-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const encabezado = document.getElementById('tmdb-heading');
+        if (encabezado) {
+            encabezado.textContent = `Quizás te pueda gustar (${btn.textContent})`;
         }
+        cargarSugerencias(btn.dataset.movie);
     });
+});
 
-    modal?.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            if (frame) frame.src = '';
-            modal.classList.remove('is-open');
-            modal.setAttribute('aria-hidden', 'true');
-        }
-    });
+document.getElementById('tmdb-close-modal')?.addEventListener('click', () => {
+    const modal = document.getElementById('tmdb-video-modal');
+    const iframe = document.getElementById('tmdb-video-frame');
+    if (iframe) iframe.src = '';
+    if (modal) modal.style.display = 'none';
+});
 
+document.addEventListener('DOMContentLoaded', () => {
     cargarSugerencias();
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inicializarTMDB);
-} else {
-    inicializarTMDB();
-}
+});
