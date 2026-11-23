@@ -42,13 +42,14 @@
     @media (max-width: 600px) { .login-card { padding: 36px 26px; } .auth-header { padding: 20px 24px; } .auth-footer { padding: 24px; } }
   </style>
   <!-- SDK de Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    onerror="this.onerror=null;this.src='https://unpkg.com/@supabase/supabase-js@2'"></script>
 </head>
 <body class="auth-page">
   <div class="auth-backdrop"></div>
   <header class="auth-header"><a class="netflix-logo" href="#login" aria-label="Angel Netflix"><span>N</span><b>ANGEL NETFLIX</b></a></header>
   <main class="auth-main">
-    <form class="login-card auth-screen" id="login-form" data-screen="login">
+    <form class="login-card auth-screen" id="login-form" data-screen="login" method="post" action="" onsubmit="return false">
       <h1>Iniciar sesión</h1>
       <div class="form-alert" id="login-alert" role="alert" hidden></div>
       <label class="field"><span>Correo electrónico</span><input type="email" name="email" placeholder="Correo electrónico" autocomplete="email" required autofocus></label>
@@ -57,7 +58,7 @@
       <div class="login-options"><label><input type="checkbox" name="remember"> <span>Recuérdame</span></label><a href="#forgot-password">¿Necesitas ayuda?</a></div>
       <p class="new-user">¿Primera vez en Angel Netflix? <a href="#signup">Suscríbete ahora.</a></p><p class="captcha-copy">Conectado de manera segura con Supabase.</p>
     </form>
-    <form class="login-card auth-screen" id="signup-form" data-screen="signup" hidden>
+    <form class="login-card auth-screen" id="signup-form" data-screen="signup" method="post" action="" onsubmit="return false" hidden>
       <a class="auth-back-link" href="#login">← Volver a iniciar sesión</a><h1>Crear cuenta</h1><p class="auth-intro">Disfruta de películas, series y mucho más.</p>
       <div class="form-alert" id="signup-alert" role="alert" hidden></div>
       <label class="field"><span>Nombre</span><input type="text" name="name" placeholder="Nombre" autocomplete="name" required></label>
@@ -65,7 +66,7 @@
       <label class="field"><span>Contraseña</span><input type="password" name="password" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="new-password" minlength="6" required></label>
       <button class="primary-button" type="submit">Registrarme</button><p class="captcha-copy">Tu cuenta se registrará en la base de datos de Supabase.</p>
     </form>
-    <form class="login-card auth-screen" id="forgot-password-form" data-screen="forgot-password" hidden>
+    <form class="login-card auth-screen" id="forgot-password-form" data-screen="forgot-password" method="post" action="" onsubmit="return false" hidden>
       <a class="auth-back-link" href="#login">← Volver a iniciar sesión</a><h1>¿Has olvidado tu contraseña?</h1><p class="auth-intro">Te enviaremos un enlace para restablecerla.</p>
       <div class="form-alert" id="forgot-alert" role="alert" hidden></div>
       <label class="field"><span>Correo electrónico</span><input type="email" name="email" placeholder="Correo electrónico" autocomplete="email" required></label>
@@ -75,13 +76,19 @@
   <footer class="auth-footer"><p>¿Preguntas? Estamos listos para el streaming.</p><div class="footer-links"><a href="#faq">Preguntas frecuentes</a><a href="#terms">Términos de uso</a><a href="#privacy">Privacidad</a><a href="#cookies">Preferencias de cookies</a></div><button class="language-button" type="button">Español ▾</button></footer>
 
 <script>
+    const sensitiveParams = new URLSearchParams(window.location.search);
+    if (sensitiveParams.has('email') || sensitiveParams.has('password')) {
+      const cleanUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+
     // Configuración de Supabase
     const SUPABASE_URL = 'https://fqozhdfylzqxqeegzodg.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable__ah7bjBZfSpB9w2kTjgoGQ_Mn5YTYFi';
 
-    const { createClient } = supabase;
-    // CORRECCIÓN: Se agregaron las comillas que faltaban para que sean strings válidos
-    const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const _supabase = window.supabase
+      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+      : null;
 
     const screens = document.querySelectorAll('.auth-screen');
 
@@ -101,10 +108,18 @@
     window.addEventListener('hashchange', showScreen); 
     showScreen();
 
+    if (!_supabase) {
+      showAlert('#login-alert', 'No se pudo cargar Supabase. Comprueba tu conexion a internet.', true);
+    }
+
     // Lógica de Inicio de Sesión
     document.querySelector('#login-form').addEventListener('submit', async function (event) {
       event.preventDefault(); 
       if (!this.reportValidity()) return;
+      if (!_supabase) {
+        showAlert('#login-alert', 'No se pudo conectar con Supabase. Recarga la pagina.', true);
+        return;
+      }
 
       const email = this.email.value.trim();
       const password = this.password.value.trim();
@@ -120,8 +135,8 @@
         showAlert('#login-alert', `Error: ${error.message}`, true);
       } else {
         showAlert('#login-alert', '¡Inicio de sesión exitoso! Redirigiendo...');
-         Opcional: Redirigir a tu panel o página principal tras iniciar sesión
-         setTimeout(() => { window.location.href = 'Inicio.html'; }, 1000);
+        // Redirigir a tu panel o página principal tras iniciar sesión.
+        setTimeout(() => { window.location.href = 'Inicio.html'; }, 1000);
       }
     });
 
@@ -129,6 +144,10 @@
     document.querySelector('#signup-form').addEventListener('submit', async function (event) {
       event.preventDefault(); 
       if (!this.reportValidity()) return;
+      if (!_supabase) {
+        showAlert('#signup-alert', 'No se pudo conectar con Supabase. Recarga la pagina.', true);
+        return;
+      }
 
       const name = this.name.value.trim();
       const email = this.email.value.trim();
@@ -158,6 +177,10 @@
     document.querySelector('#forgot-password-form').addEventListener('submit', async function (event) {
       event.preventDefault(); 
       if (!this.reportValidity()) return;
+      if (!_supabase) {
+        showAlert('#forgot-alert', 'No se pudo conectar con Supabase. Recarga la pagina.', true);
+        return;
+      }
 
       const email = this.email.value.trim();
 
