@@ -1,4 +1,4 @@
-const TMDB_API_KEY = 'PEGA_AQUI_TU_API_KEY_DE_TMDB';
+const TMDB_API_KEY = '4f7d36300e745a3e7cb6ff6f5078c29b';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 const TMDB_IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
