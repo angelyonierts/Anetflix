@@ -7,20 +7,20 @@ async function cargarSugerencias(movieId = 569094, tituloBase = '') {
     const encabezado = document.getElementById('tmdb-heading');
     if (!contenedor) return;
 
-    contenedor.innerHTML = '<p style="color:#b3b3b3;">Cargando sugerencias...</p>';
+    contenedor.innerHTML = '<p class="tmdb-status">Cargando sugerencias...</p>';
 
     try {
         const url = `${TMDB_BASE_URL}/movie/${movieId}/recommendations?api_key=${TMDB_API_KEY}&language=es-MX&page=1`;
         const res = await fetch(url);
 
         if (!res.ok) {
-            throw new Error(`HTTP ${res.status} - ${res.statusText}`);
+            throw new Error(`HTTP ${res.status}`);
         }
 
         const data = await res.json();
 
         if (!data.results || data.results.length === 0) {
-            contenedor.innerHTML = '<p style="color:#b3b3b3;">No se encontraron sugerencias para este título.</p>';
+            contenedor.innerHTML = '<p class="tmdb-status">No hay sugerencias disponibles para este título.</p>';
             return;
         }
 
@@ -32,31 +32,17 @@ async function cargarSugerencias(movieId = 569094, tituloBase = '') {
             const poster = peli.poster_path
                 ? `${TMDB_IMG_URL}${peli.poster_path}`
                 : 'imagenes/movieposter.jpg';
-            const anio = peli.release_date ? peli.release_date.slice(0, 4) : '2025';
             const tituloSeguro = (peli.title || 'Sin título').replace(/"/g, '&quot;');
 
             return `
-                <article class="tmdb-card" data-id="${peli.id}" data-title="${tituloSeguro}"
-                    style="min-width: 175px; max-width: 175px; background: #181818; border-radius: 6px; overflow: hidden; cursor: pointer; transition: transform .2s ease;">
-                    <img src="${poster}" alt="${tituloSeguro}" loading="lazy"
-                        style="width: 100%; height: 250px; object-fit: cover; display: block;">
-                    <div style="padding: 10px;">
-                        <h3 style="color: #fff; font-size: .92rem; margin: 0 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                            ${peli.title}
-                        </h3>
-                        <div style="display: flex; justify-content: space-between; font-size: .78rem; color: #b3b3b3;">
-                            <span style="color: #46d369; font-weight: bold;">⭐ ${Number(peli.vote_average || 0).toFixed(1)}</span>
-                            <span>${anio}</span>
-                        </div>
-                    </div>
+                <article class="tmdb-card" tabindex="0" data-id="${peli.id}" data-title="${tituloSeguro}">
+                    <img src="${poster}" alt="${tituloSeguro}" loading="lazy">
+                    <h3>${peli.title}</h3>
                 </article>
             `;
         }).join('');
 
         contenedor.querySelectorAll('.tmdb-card').forEach(card => {
-            card.addEventListener('mouseenter', () => card.style.transform = 'scale(1.04)');
-            card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
-
             card.addEventListener('click', () => {
                 const id = card.dataset.id;
                 const titulo = card.dataset.title;
@@ -66,8 +52,8 @@ async function cargarSugerencias(movieId = 569094, tituloBase = '') {
         });
 
     } catch (error) {
-        console.error('Error detallado de TMDB:', error);
-        contenedor.innerHTML = `<p style="color:#ff6b6b;">Error al cargar recomendaciones (${error.message}).</p>`;
+        console.error('Error TMDB:', error);
+        contenedor.innerHTML = `<p class="tmdb-status">Error al cargar recomendaciones (${error.message}).</p>`;
     }
 }
 
@@ -89,7 +75,8 @@ async function reproducirTrailerTMDB(movieId) {
 
         if (video) {
             iframe.src = `https://www.youtube.com/embed/${video.key}?autoplay=1`;
-            modal.style.display = 'flex';
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
         } else {
             alert('Este título no tiene tráiler disponible en YouTube.');
         }
@@ -98,23 +85,37 @@ async function reproducirTrailerTMDB(movieId) {
     }
 }
 
-document.querySelectorAll('.tmdb-chip').forEach(btn => {
+// Botones de categoría con clase .is-active
+const chips = document.querySelectorAll('.tmdb-chip');
+chips.forEach(btn => {
     btn.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
         const encabezado = document.getElementById('tmdb-heading');
         if (encabezado) {
-            encabezado.textContent = `Quizás te pueda gustar (${btn.textContent})`;
+            encabezado.textContent = `Quizás te pueda gustar · ${btn.textContent}`;
         }
         cargarSugerencias(btn.dataset.movie);
     });
 });
 
-document.getElementById('tmdb-close-modal')?.addEventListener('click', () => {
+// Cerrar el modal quitando la clase .is-open
+function cerrarModalTMDB() {
     const modal = document.getElementById('tmdb-video-modal');
     const iframe = document.getElementById('tmdb-video-frame');
     if (iframe) iframe.src = '';
-    if (modal) modal.style.display = 'none';
+    if (modal) {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+    }
+}
+
+document.getElementById('tmdb-close-modal')?.addEventListener('click', cerrarModalTMDB);
+document.getElementById('tmdb-video-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'tmdb-video-modal') cerrarModalTMDB();
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    cargarSugerencias();
-});
+// Marcar el primer filtro activo y cargar películas al abrir
+if (chips.length > 0) chips[0].classList.add('is-active');
+cargarSugerencias();
