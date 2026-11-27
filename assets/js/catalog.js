@@ -25,7 +25,7 @@ function normalizarCatalogoYT(items) {
         return {
             ...item,
             id: item.id ?? index + 1,
-            category: (item.category || 'General').trim(),
+            category: (item.category || 'Acción').trim(),
             description: (item.description || '').trim(),
             youtubeId: ytId,
             videoUrl: videoDirecto && !ytId ? videoDirecto : '',
@@ -117,7 +117,7 @@ const CATALOGO_BASE = [
     {
         id: 12,
         title: 'Las nuevas desventuras de Cliff Booth (2026)',
-        category: 'Especial',
+        category: 'Acción',
         description: 'Contenido de análisis/especial en español sobre la historia de Cliff Booth.',
         youtubeId: '_RleToK1lIM'
     },
@@ -128,39 +128,237 @@ const CATALOGO_BASE = [
         description: 'Película completa en español latino de acción y ciencia ficción con aliens y agentes secretos.',
         youtubeId: 't6vaVHCRQnA'
     },
-    { id: 14, title: 'Video YouTube (W-NXMoIRUGA)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'W-NXMoIRUGA' },
-    { id: 15, title: 'Un Periodista Escéptico Investiga a la Virgen de Guadalupe… y Todo Empieza a Cambiar', category: 'Drama', description: 'Película o video agregado desde YouTube.', youtubeId: 'OCibWJepHrI' },
-    { id: 16, title: 'Llegaron a la Isla por Vacaciones… y Encontraron las Pistas de una...', category: 'Suspenso', description: 'Película o video agregado desde YouTube.', youtubeId: 'MPEhSmZnfoo' },
-    { id: 17, title: 'Le Dieron el Antiguo Número de un Famoso… y Todas las Puertas Se Abrieron', category: 'Comedia', description: 'Película o video agregado desde YouTube.', youtubeId: 'lvcKJi3Mi_8' },
-    { id: 18, title: 'Alec Baldwin Sale de Prisión y Kim Basinger lo Acompaña en un Golpe Que Sale Mal', category: 'Acción', description: 'Película o video agregado desde YouTube.', youtubeId: 'afRYDUKR7AE' },
-    { id: 19, title: 'Paul Bettany Descubre a Su Novia con Otro Hombre y Su Pasado Sale a la Luz', category: 'Drama', description: 'Película o video agregado desde YouTube.', youtubeId: 'rLGIf5cYcWE' },
-    { id: 20, title: 'Jude Law Cree Haber Encontrado a Su Alma Gemela… Pero Llegó Demasiado Tarde', category: 'Romance', description: 'Película o video agregado desde YouTube.', youtubeId: 'mD5AgooWe7U' },
-    { id: 21, title: 'Video YouTube (H8OIE2YyD4U)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'H8OIE2YyD4U' },
-    { id: 22, title: 'Michael Cudlitz Sigue los Pasos de Asesinos Seriales Hasta Que Algo Cambia en Él', category: 'Suspenso', description: 'Película o video agregado desde YouTube.', youtubeId: '7gxbmKL4Ypg' },
-    { id: 23, title: 'Video YouTube (zUrtGzGO3ps)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'zUrtGzGO3ps' },
-    { id: 24, title: 'Video YouTube (rKjTf0GIEpk)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'rKjTf0GIEpk' },
-    { id: 25, title: 'Viaja al Pasado Para Impedir Que un Político Cambie el Futuro', category: 'Ciencia Ficción', description: 'Película o video agregado desde YouTube.', youtubeId: 'nSJ4nqRwuzM' },
-    { id: 26, title: 'Empezaron Jugando en Navidad… y Terminaron Atrapados Dentro del Juego', category: 'Fantasía', description: 'Película o video agregado desde YouTube.', youtubeId: 'dcubo6yl7h4' },
-    { id: 27, title: 'Algo Está Ocurriendo en las Celdas de Alcatraz Después de Medianoche', category: 'Terror', description: 'Película o video agregado desde YouTube.', youtubeId: '1b-4TF6CeIQ' },
-    { id: 28, title: 'Video YouTube (tJQQ2RExeDo)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'tJQQ2RExeDo' },
-    { id: 29, title: 'Era Cruel con Todos Hasta Que Despertó Enterrado Vivo', category: 'Suspenso', description: 'Película o video agregado desde YouTube.', youtubeId: 'sjNXv_Xgj0M' },
-    { id: 30, title: 'Su Ex Murió Pero Volvió de la Tumba Cuando Él Encontró Otra Mujer', category: 'Terror', description: 'Película o video agregado desde YouTube.', youtubeId: 'GkKRvE4JUSI' },
-    { id: 31, title: 'En Navidad, Dos Mejores Amigas Compiten por el Mismo Hombre', category: 'Romance', description: 'Película o video agregado desde YouTube.', youtubeId: 'CjsmAqunyuQ' },
-    { id: 32, title: 'Militares Renegados Secuestran un Avión Comercial en Pleno Vuelo', category: 'Acción', description: 'Película o video agregado desde YouTube.', youtubeId: '987HaZ_RduY' },
-    { id: 33, title: 'Video YouTube (mclqwyG7PG8)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'mclqwyG7PG8' },
-    { id: 34, title: 'Entró a Investigar un Hotel Donde Todos los Muertos Parecían Suicidarse', category: 'Suspenso', description: 'Película o video agregado desde YouTube.', youtubeId: '7ky67_18XzQ' },
-    { id: 35, title: 'Video YouTube (aiQH-RcV1Do)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'aiQH-RcV1Do' },
-    { id: 36, title: 'Samuel L. Jackson Desaparece y John Travolta Debe Descubrir Qué Pasó', category: 'Acción', description: 'Película o video agregado desde YouTube.', youtubeId: 'JPabu6MeClE' },
-    { id: 37, title: 'Una Tormenta Encerró a Dos Ex en un Supermercado por Navidad', category: 'Romance', description: 'Película o video agregado desde YouTube.', youtubeId: 'HhzH9eald00' },
-    { id: 38, title: 'Fueron Secuestrados por Alienígenas… Pero la Pesadilla Comenzó Después', category: 'Ciencia Ficción', description: 'Película o video agregado desde YouTube.', youtubeId: 'IRGnPiqRWVY' },
-    { id: 39, title: 'Dolph Lundgren Enfrenta a Terroristas con un Virus Letal Bajo el Mar', category: 'Acción', description: 'Película o video agregado desde YouTube.', youtubeId: '-DUT11p9L_Y' },
-    { id: 40, title: 'Construyen un Arca Antes de Que el Agua Cubra Todo el Planeta', category: 'Acción', description: 'Película o video agregado desde YouTube.', youtubeId: 'YSERvOkHS1A' },
-    { id: 41, title: 'Intentaron Detener a un Monstruo Gigante… Hasta Que Apareció Algo Peor', category: 'Ciencia Ficción', description: 'Película o video agregado desde YouTube.', youtubeId: 'rjkoVvGFwfU' },
-    { id: 42, title: 'Video YouTube (bK76eHBb4I0)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'bK76eHBb4I0' },
-    { id: 43, title: 'Sebastián Badilla Busca el Amor Mientras un Asesino Acecha la Graduación', category: 'Comedia', description: 'Película o video agregado desde YouTube.', youtubeId: 't71RmkWs76s' },
-    { id: 44, title: 'Video YouTube (NvQqHzqClf0)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'NvQqHzqClf0' },
-    { id: 45, title: 'Video YouTube (xvquhFB2fFg)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'xvquhFB2fFg' },
-    { id: 46, title: 'Video YouTube (gUmntRUC7ZU)', category: 'General', description: 'Película o video agregado desde YouTube.', youtubeId: 'gUmntRUC7ZU' }
+    {
+        id: 14,
+        title: 'Misión Extrema en YouTube (W-NXMoIRUGA)',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'W-NXMoIRUGA'
+    },
+    {
+        id: 15,
+        title: 'Un Periodista Escéptico Investiga a la Virgen de Guadalupe… y Todo Empieza a Cambiar',
+        category: 'Drama',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'OCibWJepHrI'
+    },
+    {
+        id: 16,
+        title: 'Llegaron a la Isla por Vacaciones… y Encontraron las Pistas de una...',
+        category: 'Suspenso',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'MPEhSmZnfoo'
+    },
+    {
+        id: 17,
+        title: 'Le Dieron el Antiguo Número de un Famoso… y Todas las Puertas Se Abrieron',
+        category: 'Comedia',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'lvcKJi3Mi_8'
+    },
+    {
+        id: 18,
+        title: 'Alec Baldwin Sale de Prisión y Kim Basinger lo Acompaña en un Golpe Que Sale Mal',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'afRYDUKR7AE'
+    },
+    {
+        id: 19,
+        title: 'Paul Bettany Descubre a Su Novia con Otro Hombre y Su Pasado Sale a la Luz',
+        category: 'Drama',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'rLGIf5cYcWE'
+    },
+    {
+        id: 20,
+        title: 'Jude Law Cree Haber Encontrado a Su Alma Gemela… Pero Llegó Demasiado Tarde',
+        category: 'Romance',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'mD5AgooWe7U'
+    },
+    {
+        id: 21,
+        title: 'Alerta Máxima en YouTube (H8OIE2YyD4U)',
+        category: 'Suspenso',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'H8OIE2YyD4U'
+    },
+    {
+        id: 22,
+        title: 'Michael Cudlitz Sigue los Pasos de Asesinos Seriales Hasta Que Algo Cambia en Él',
+        category: 'Suspenso',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: '7gxbmKL4Ypg'
+    },
+    {
+        id: 23,
+        title: 'Rescate Imposible en YouTube (zUrtGzGO3ps)',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'zUrtGzGO3ps'
+    },
+    {
+        id: 24,
+        title: 'El Último Testigo en YouTube (rKjTf0GIEpk)',
+        category: 'Suspenso',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'rKjTf0GIEpk'
+    },
+    {
+        id: 25,
+        title: 'Viaja al Pasado Para Impedir Que un Político Cambie el Futuro',
+        category: 'Ciencia Ficción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'nSJ4nqRwuzM'
+    },
+    {
+        id: 26,
+        title: 'Empezaron Jugando en Navidad… y Terminaron Atrapados Dentro del Juego',
+        category: 'Fantasía',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'dcubo6yl7h4'
+    },
+    {
+        id: 27,
+        title: 'Algo Está Ocurriendo en las Celdas de Alcatraz Después de Medianoche',
+        category: 'Terror',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: '1b-4TF6CeIQ'
+    },
+    {
+        id: 28,
+        title: 'Sombra en la Noche en YouTube (tJQQ2RExeDo)',
+        category: 'Terror',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'tJQQ2RExeDo'
+    },
+    {
+        id: 29,
+        title: 'Era Cruel con Todos Hasta Que Despertó Enterrado Vivo',
+        category: 'Suspenso',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'sjNXv_Xgj0M'
+    },
+    {
+        id: 30,
+        title: 'Su Ex Murió Pero Volvió de la Tumba Cuando Él Encontró Otra Mujer',
+        category: 'Terror',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'GkKRvE4JUSI'
+    },
+    {
+        id: 31,
+        title: 'En Navidad, Dos Mejores Amigas Compiten por el Mismo Hombre',
+        category: 'Romance',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'CjsmAqunyuQ'
+    },
+    {
+        id: 32,
+        title: 'Militares Renegados Secuestran un Avión Comercial en Pleno Vuelo',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: '987HaZ_RduY'
+    },
+    {
+        id: 33,
+        title: 'Operación Nocturna en YouTube (mclqwyG7PG8)',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'mclqwyG7PG8'
+    },
+    {
+        id: 34,
+        title: 'Entró a Investigar un Hotel Donde Todos los Muertos Parecían Suicidarse',
+        category: 'Suspenso',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: '7ky67_18XzQ'
+    },
+    {
+        id: 35,
+        title: 'Destino Oculto en YouTube (aiQH-RcV1Do)',
+        category: 'Drama',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'aiQH-RcV1Do'
+    },
+    {
+        id: 36,
+        title: 'Samuel L. Jackson Desaparece y John Travolta Debe Descubrir Qué Pasó',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'JPabu6MeClE'
+    },
+    {
+        id: 37,
+        title: 'Una Tormenta Encerró a Dos Ex en un Supermercado por Navidad',
+        category: 'Romance',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'HhzH9eald00'
+    },
+    {
+        id: 38,
+        title: 'Fueron Secuestrados por Alienígenas… Pero la Pesadilla Comenzó Después',
+        category: 'Ciencia Ficción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'IRGnPiqRWVY'
+    },
+    {
+        id: 39,
+        title: 'Dolph Lundgren Enfrenta a Terroristas con un Virus Letal Bajo el Mar',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: '-DUT11p9L_Y'
+    },
+    {
+        id: 40,
+        title: 'Construyen un Arca Antes de Que el Agua Cubra Todo el Planeta',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'YSERvOkHS1A'
+    },
+    {
+        id: 41,
+        title: 'Intentaron Detener a un Monstruo Gigante… Hasta Que Apareció Algo Peor',
+        category: 'Ciencia Ficción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'rjkoVvGFwfU'
+    },
+    {
+        id: 42,
+        title: 'Doble Juego en YouTube (bK76eHBb4I0)',
+        category: 'Suspenso',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'bK76eHBb4I0'
+    },
+    {
+        id: 43,
+        title: 'Sebastián Badilla Busca el Amor Mientras un Asesino Acecha la Graduación',
+        category: 'Comedia',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 't71RmkWs76s'
+    },
+    {
+        id: 44,
+        title: 'Riesgo Extremo en YouTube (NvQqHzqClf0)',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'NvQqHzqClf0'
+    },
+    {
+        id: 45,
+        title: 'Fuego Cruzado en YouTube (xvquhFB2fFg)',
+        category: 'Acción',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'xvquhFB2fFg'
+    },
+    {
+        id: 46,
+        title: 'Enigma Final en YouTube (gUmntRUC7ZU)',
+        category: 'Suspenso',
+        description: 'Película completa disponible en YouTube.',
+        youtubeId: 'gUmntRUC7ZU'
+    }
 ];
 
 const STORAGE_PELICULAS_KEY = 'angel_netflix_custom_movies';
@@ -207,7 +405,7 @@ function agregarPelicula(nuevaPelicula) {
     const peliculaLista = {
         id: maxId + 1,
         title: nuevaPelicula.title.trim(),
-        category: (nuevaPelicula.category || 'General').trim(),
+        category: (nuevaPelicula.category || 'Acción').trim(),
         description: (nuevaPelicula.description || '').trim(),
         youtubeId: (nuevaPelicula.youtubeId || '').trim(),
         videoUrl: (nuevaPelicula.videoUrl || '').trim(),
