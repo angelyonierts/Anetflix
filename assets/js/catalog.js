@@ -41,322 +41,322 @@ const CATALOGO_BASE = [
         id: 1,
         title: 'Tocó Fondo en Año Nuevo… y Decidió Recuperar a Su Hijo y Su Vida',
         category: 'Drama',
-        description: 'Película completa de drama disponible en YouTube.',
+        description: 'Un hombre marcado por sus errores intenta rehacer su camino y ganarse el derecho de volver a estar con su hijo.',
         youtubeId: '1ZV8npcsJ4I'
     },
     {
         id: 2,
         title: 'Prueba de Fuego',
         category: 'Acción',
-        description: 'Película de acción completa en español latino sobre bomberos paracaidistas enfrentando incendios forestales extremos.',
+        description: 'Bomberos paracaidistas enfrentan incendios forestales extremos mientras luchan por salvar vidas y controlar el fuego.',
         youtubeId: 'YrMiIC9OcZ0'
     },
     {
         id: 3,
         title: 'Huracán',
         category: 'Drama',
-        description: 'Una historia que atrapa hasta el final, basada en el boxeador Rubin Hurricane Carter y su lucha por la libertad.',
+        description: 'Inspirada en el boxeador Rubin "Hurricane" Carter, sigue su lucha contra una condena injusta por asesinato.',
         youtubeId: 'Y_5dwSHQxBw'
     },
     {
         id: 4,
         title: 'Becas y Barba de Cristal',
         category: 'Drama',
-        description: 'Película completa en español latino protagonizada por Val Kilmer.',
+        description: 'Historia dramática protagonizada por Val Kilmer sobre decisiones familiares, orgullo y segundas oportunidades.',
         youtubeId: 'tT0nMugAUEg'
     },
     {
         id: 5,
         title: 'Salió del hospital y nadie fue por él',
         category: 'Drama',
-        description: 'Un drama sobre un niño que sale del hospital y espera poder volver con su mamá.',
+        description: 'Un niño recibe el alta médica y enfrenta la incertidumbre de regresar a casa esperando reencontrarse con su madre.',
         youtubeId: 'gI-kZ5q723U'
     },
     {
         id: 6,
         title: 'El Gángster, el Policía y el Diablo',
         category: 'Acción',
-        description: 'Un detective y un jefe criminal forman una alianza para atrapar a un asesino serial.',
+        description: 'Un detective y el líder de una banda criminal se ven obligados a colaborar para cazar a un asesino serial.',
         youtubeId: 'L10tsbZpHVc'
     },
     {
         id: 7,
         title: 'Creyó Haber Encontrado Su Navidad Perfecta… Hasta Que Volvió la Ex',
         category: 'Romance',
-        description: 'Una organizadora de eventos navideños conoce a un padre soltero y su hijo, pero todo se complica cuando regresa la madre del niño.',
+        description: 'Una organizadora de fiestas navideñas se acerca a un padre viudo y su hijo, hasta que el regreso de la ex altera sus planes.',
         youtubeId: 'prLSLLGvi_8'
     },
     {
         id: 8,
         title: 'Hotel Transylvania 2',
         category: 'Animación',
-        description: 'Película animada completa en español latino HD.',
+        description: 'Drácula y su familia intentan despertar los poderes vampíricos del pequeño Dennis mientras lidian con la llegada de su abuelo.',
         youtubeId: 'WeUclk49FXU'
     },
     {
         id: 9,
         title: 'La Princesa y el Guardaespaldas',
         category: 'Romance',
-        description: 'Una mujer común descubre que es heredera real y recibe la protección de un guardaespaldas.',
+        description: 'Una joven descubre su linaje real y queda bajo la protección de un guardaespaldas con quien surge un vínculo inesperado.',
         youtubeId: 'A2_WB3VSVzM'
     },
     {
         id: 10,
         title: 'Gran Stan: A Prueba de Hombres',
         category: 'Comedia',
-        description: 'Comedia protagonizada por Rob Schneider sobre un estafador que entrena artes marciales antes de entrar a prisión.',
+        description: 'Un estafador condenado a prisión contrata a un maestro de artes marciales para aprender a defenderse antes de entrar.',
         youtubeId: 'S8p3pEGqJIg'
     },
     {
         id: 11,
         title: 'Plan de Escape',
         category: 'Acción',
-        description: 'Película de acción con Sylvester Stallone y Arnold Schwarzenegger, doblada al español.',
+        description: 'Un experto en seguridad carcelaria es encerrado en una prisión de alta seguridad y planea escapar junto a otro recluso.',
         youtubeId: 'a-o3suDHiE0'
     },
     {
         id: 12,
         title: 'Las nuevas desventuras de Cliff Booth (2026)',
         category: 'Acción',
-        description: 'Contenido de análisis/especial en español sobre la historia de Cliff Booth.',
+        description: 'Análisis y revisión cinematográfica centrada en el personaje de Cliff Booth y su legado en pantalla.',
         youtubeId: '_RleToK1lIM'
     },
     {
         id: 13,
         title: 'Hombres de Negro 2',
         category: 'Ciencia Ficción',
-        description: 'Película completa en español latino de acción y ciencia ficción con aliens y agentes secretos.',
+        description: 'Los agentes J y K vuelven a unirse para detener a una amenaza extraterrestre disfrazada que pone en peligro la Tierra.',
         youtubeId: 't6vaVHCRQnA'
     },
     {
         id: 14,
-        title: 'Misión Extrema en YouTube (W-NXMoIRUGA)',
+        title: 'Misión Extrema',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una operación de alto riesgo pone a prueba la resistencia y lealtad del equipo en una misión contrarreloj.',
         youtubeId: 'W-NXMoIRUGA'
     },
     {
         id: 15,
         title: 'Un Periodista Escéptico Investiga a la Virgen de Guadalupe… y Todo Empieza a Cambiar',
         category: 'Drama',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Un periodista ambicioso y escéptico investiga la historia de la Virgen de Guadalupe y sus convicciones empiezan a transformarse.',
         youtubeId: 'OCibWJepHrI'
     },
     {
         id: 16,
         title: 'Llegaron a la Isla por Vacaciones… y Encontraron las Pistas de una...',
         category: 'Suspenso',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Un grupo viaja a una isla para descansar y termina descubriendo pistas vinculadas a una valiosa fortuna.',
         youtubeId: 'MPEhSmZnfoo'
     },
     {
         id: 17,
         title: 'Le Dieron el Antiguo Número de un Famoso… y Todas las Puertas Se Abrieron',
         category: 'Comedia',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Un desconocido recibe el antiguo número telefónico de una celebridad y accede a un mundo de fiestas y lujos hasta que el dueño original lo descubre.',
         youtubeId: 'lvcKJi3Mi_8'
     },
     {
         id: 18,
         title: 'Alec Baldwin Sale de Prisión y Kim Basinger lo Acompaña en un Golpe Que Sale Mal',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Tras salir de prisión, un ladrón se reúne con su cómplice para un golpe que se complica más de lo previsto.',
         youtubeId: 'afRYDUKR7AE'
     },
     {
         id: 19,
         title: 'Paul Bettany Descubre a Su Novia con Otro Hombre y Su Pasado Sale a la Luz',
         category: 'Drama',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una infidelidad desencadena una serie de revelaciones sobre el pasado que cambian la vida de los involucrados.',
         youtubeId: 'rLGIf5cYcWE'
     },
     {
         id: 20,
         title: 'Jude Law Cree Haber Encontrado a Su Alma Gemela… Pero Llegó Demasiado Tarde',
         category: 'Romance',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una historia romántica marcada por el destino, las dudas y la sensación de llegar a destiempo.',
         youtubeId: 'mD5AgooWe7U'
     },
     {
         id: 21,
-        title: 'Alerta Máxima en YouTube (H8OIE2YyD4U)',
+        title: 'Alerta Máxima',
         category: 'Suspenso',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una amenaza inesperada desata la tensión y obliga a actuar rápido para evitar una tragedia.',
         youtubeId: 'H8OIE2YyD4U'
     },
     {
         id: 22,
         title: 'Michael Cudlitz Sigue los Pasos de Asesinos Seriales Hasta Que Algo Cambia en Él',
         category: 'Suspenso',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una investigación sobre asesinos seriales lleva al protagonista a confrontar sus propios límites psicológicos.',
         youtubeId: '7gxbmKL4Ypg'
     },
     {
         id: 23,
-        title: 'Rescate Imposible en YouTube (zUrtGzGO3ps)',
+        title: 'Rescate Imposible',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Un operativo de rescate enfrenta condiciones adversas y enemigos decididos a impedir que lleguen a salvo.',
         youtubeId: 'zUrtGzGO3ps'
     },
     {
         id: 24,
-        title: 'El Último Testigo en YouTube (rKjTf0GIEpk)',
+        title: 'El Último Testigo',
         category: 'Suspenso',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Quien posee información clave sobre un crimen se convierte en el objetivo principal de quienes buscan ocultarlo.',
         youtubeId: 'rKjTf0GIEpk'
     },
     {
         id: 25,
         title: 'Viaja al Pasado Para Impedir Que un Político Cambie el Futuro',
         category: 'Ciencia Ficción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Un viaje en el tiempo busca evitar que las decisiones de un político alteren el curso del futuro.',
         youtubeId: 'nSJ4nqRwuzM'
     },
     {
         id: 26,
         title: 'Empezaron Jugando en Navidad… y Terminaron Atrapados Dentro del Juego',
         category: 'Fantasía',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una partida navideña se sale de control y deja a los jugadores atrapados dentro de una aventura fantástica.',
         youtubeId: 'dcubo6yl7h4'
     },
     {
         id: 27,
         title: 'Algo Está Ocurriendo en las Celdas de Alcatraz Después de Medianoche',
         category: 'Terror',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Sucesos paranormales y peligrosos despiertan en las antiguas celdas de Alcatraz cuando cae la noche.',
         youtubeId: '1b-4TF6CeIQ'
     },
     {
         id: 28,
-        title: 'Sombra en la Noche en YouTube (tJQQ2RExeDo)',
+        title: 'Sombra en la Noche',
         category: 'Terror',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una presencia inquietante acecha en la oscuridad y pone a prueba los nervios de quienes la enfrentan.',
         youtubeId: 'tJQQ2RExeDo'
     },
     {
         id: 29,
         title: 'Era Cruel con Todos Hasta Que Despertó Enterrado Vivo',
         category: 'Suspenso',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Peter, conocido por su crueldad hacia niños, animales y sirvientes, enfrenta una pesadilla al despertar enterrado vivo.',
         youtubeId: 'sjNXv_Xgj0M'
     },
     {
         id: 30,
         title: 'Su Ex Murió Pero Volvió de la Tumba Cuando Él Encontró Otra Mujer',
         category: 'Terror',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Cuando él intenta rehacer su vida amorosa con otra mujer, el regreso sobrenatural de su ex desata el terror.',
         youtubeId: 'GkKRvE4JUSI'
     },
     {
         id: 31,
         title: 'En Navidad, Dos Mejores Amigas Compiten por el Mismo Hombre',
         category: 'Romance',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Dos mejores amigas compiten por conquistar al mismo hombre durante las fiestas navideñas mientras redescubren el espíritu de la Navidad.',
         youtubeId: 'CjsmAqunyuQ'
     },
     {
         id: 32,
         title: 'Militares Renegados Secuestran un Avión Comercial en Pleno Vuelo',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Un grupo de militares renegados toma el control de un avión comercial en pleno vuelo y desata una crisis en el aire.',
         youtubeId: '987HaZ_RduY'
     },
     {
         id: 33,
-        title: 'Operación Nocturna en YouTube (mclqwyG7PG8)',
+        title: 'Operación Nocturna',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una misión encubierta se desarrolla al amparo de la noche con altos riesgos y enfrentamientos directos.',
         youtubeId: 'mclqwyG7PG8'
     },
     {
         id: 34,
         title: 'Entró a Investigar un Hotel Donde Todos los Muertos Parecían Suicidarse',
         category: 'Suspenso',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una periodista se infiltra en el Hotel Imperial para investigar muertes sospechosas que parecen suicidios y descubre lo que ocurre tras sus puertas.',
         youtubeId: '7ky67_18XzQ'
     },
     {
         id: 35,
-        title: 'Destino Oculto en YouTube (aiQH-RcV1Do)',
+        title: 'Destino Oculto',
         category: 'Drama',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Secretos guardados durante años salen a la superficie y obligan a los personajes a enfrentar su destino.',
         youtubeId: 'aiQH-RcV1Do'
     },
     {
         id: 36,
         title: 'Samuel L. Jackson Desaparece y John Travolta Debe Descubrir Qué Pasó',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'La desaparición repentina de su compañero impulsa una investigación cargada de acción y giros inesperados.',
         youtubeId: 'JPabu6MeClE'
     },
     {
         id: 37,
         title: 'Una Tormenta Encerró a Dos Ex en un Supermercado por Navidad',
         category: 'Romance',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una tormenta navideña deja atrapados a dos exparejas dentro de un supermercado, obligándolos a convivir y resolver asuntos pendientes.',
         youtubeId: 'HhzH9eald00'
     },
     {
         id: 38,
         title: 'Fueron Secuestrados por Alienígenas… Pero la Pesadilla Comenzó Después',
         category: 'Ciencia Ficción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Cuatro amigos pierden el conocimiento tras un secuestro extraterrestre y descubren que lo peor ocurre después.',
         youtubeId: 'IRGnPiqRWVY'
     },
     {
         id: 39,
         title: 'Dolph Lundgren Enfrenta a Terroristas con un Virus Letal Bajo el Mar',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'En un entorno submarino, el protagonista enfrenta a terroristas armados con un virus mortal antes de que se propague.',
         youtubeId: '-DUT11p9L_Y'
     },
     {
         id: 40,
         title: 'Construyen un Arca Antes de Que el Agua Cubra Todo el Planeta',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Ante una inundación global catastrófica, se intenta construir un arca para preservar la vida antes de que el agua cubra la Tierra.',
         youtubeId: 'YSERvOkHS1A'
     },
     {
         id: 41,
         title: 'Intentaron Detener a un Monstruo Gigante… Hasta Que Apareció Algo Peor',
         category: 'Ciencia Ficción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Un Kaiju gigante amenaza con destruir todo a su paso, pero al intentar frenarlo surgen criaturas colosales aún más peligrosas.',
         youtubeId: 'rjkoVvGFwfU'
     },
     {
         id: 42,
-        title: 'Doble Juego en YouTube (bK76eHBb4I0)',
+        title: 'Doble Juego',
         category: 'Suspenso',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Engaños, alianzas inciertas y dobles intenciones ponen en jaque a quienes participan en el juego.',
         youtubeId: 'bK76eHBb4I0'
     },
     {
         id: 43,
         title: 'Sebastián Badilla Busca el Amor Mientras un Asesino Acecha la Graduación',
         category: 'Comedia',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Entre enredos románticos y humor, una celebración de graduación se ve amenazada por un asesino al acecho.',
         youtubeId: 't71RmkWs76s'
     },
     {
         id: 44,
-        title: 'Riesgo Extremo en YouTube (NvQqHzqClf0)',
+        title: 'Riesgo Extremo',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Una situación límite lleva a los protagonistas a tomar decisiones extremas para sobrevivir.',
         youtubeId: 'NvQqHzqClf0'
     },
     {
         id: 45,
-        title: 'Fuego Cruzado en YouTube (xvquhFB2fFg)',
+        title: 'Fuego Cruzado',
         category: 'Acción',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Atrapados en medio de un enfrentamiento peligroso, deben abrirse paso con estrategia y rapidez.',
         youtubeId: 'xvquhFB2fFg'
     },
     {
         id: 46,
-        title: 'Enigma Final en YouTube (gUmntRUC7ZU)',
+        title: 'Enigma Final',
         category: 'Suspenso',
-        description: 'Película completa disponible en YouTube.',
+        description: 'Un misterio sin resolver exige descifrar las últimas pistas antes de que sea demasiado tarde.',
         youtubeId: 'gUmntRUC7ZU'
     }
 ];
