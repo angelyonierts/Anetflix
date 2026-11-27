@@ -7,13 +7,31 @@ function miniaturaYouTube(youtubeId) {
 }
 
 function normalizarCatalogoYT(items) {
-    return items.map((item) => {
-        const ytId = item.youtubeId || '';
+    return items.map((item, index) => {
+        const ytId = (item.youtubeId || '').trim();
+        const videoDirecto = (item.videoUrl || item.video || '').trim();
+
+        let videoFinal = '';
+        if (ytId) {
+            videoFinal = urlEmbedYouTube(ytId);
+        } else if (videoDirecto) {
+            videoFinal = videoDirecto;
+        }
+
+        const imagenFinal =
+            (item.image || '').trim() ||
+            (ytId ? miniaturaYouTube(ytId) : 'imagenes/movieposter.jpg');
+
         return {
             ...item,
+            id: item.id ?? index + 1,
+            category: (item.category || 'General').trim(),
+            description: (item.description || '').trim(),
             youtubeId: ytId,
-            image: item.image || (ytId ? miniaturaYouTube(ytId) : 'imagenes/movieposter.jpg'),
-            video: ytId ? urlEmbedYouTube(ytId) : item.video
+            videoUrl: videoDirecto && !ytId ? videoDirecto : '',
+            esYouTube: Boolean(ytId),
+            image: imagenFinal,
+            video: videoFinal
         };
     });
 }
@@ -109,16 +127,298 @@ const CATALOGO_BASE = [
         category: 'Ciencia Ficción',
         description: 'Película completa en español latino de acción y ciencia ficción con aliens y agentes secretos.',
         youtubeId: 't6vaVHCRQnA'
+    },
+    {
+        id: 14,
+        title: 'Título pendiente (W-NXMoIRUGA)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'W-NXMoIRUGA'
+    },
+    {
+        id: 15,
+        title: 'Título pendiente (OCibWJepHrI)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'OCibWJepHrI'
+    },
+    {
+        id: 16,
+        title: 'Título pendiente (MPEhSmZnfoo)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'MPEhSmZnfoo'
+    },
+    {
+        id: 17,
+        title: 'Título pendiente (lvcKJi3Mi_8)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'lvcKJi3Mi_8'
+    },
+    {
+        id: 18,
+        title: 'Título pendiente (afRYDUKR7AE)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'afRYDUKR7AE'
+    },
+    {
+        id: 19,
+        title: 'Título pendiente (rLGIf5cYcWE)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'rLGIf5cYcWE'
+    },
+    {
+        id: 20,
+        title: 'Título pendiente (mD5AgooWe7U)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'mD5AgooWe7U'
+    },
+    {
+        id: 21,
+        title: 'Título pendiente (H8OIE2YyD4U)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'H8OIE2YyD4U'
+    },
+    {
+        id: 22,
+        title: 'Título pendiente (7gxbmKL4Ypg)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: '7gxbmKL4Ypg'
+    },
+    {
+        id: 23,
+        title: 'Título pendiente (zUrtGzGO3ps)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'zUrtGzGO3ps'
+    },
+    {
+        id: 24,
+        title: 'Título pendiente (rKjTf0GIEpk)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'rKjTf0GIEpk'
+    },
+    {
+        id: 25,
+        title: 'Título pendiente (nSJ4nqRwuzM)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'nSJ4nqRwuzM'
+    },
+    {
+        id: 26,
+        title: 'Título pendiente (dcubo6yl7h4)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'dcubo6yl7h4'
+    },
+    {
+        id: 27,
+        title: 'Título pendiente (1b-4TF6CeIQ)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: '1b-4TF6CeIQ'
+    },
+    {
+        id: 28,
+        title: 'Título pendiente (tJQQ2RExeDo)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'tJQQ2RExeDo'
+    },
+    {
+        id: 29,
+        title: 'Título pendiente (sjNXv_Xgj0M)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'sjNXv_Xgj0M'
+    },
+    {
+        id: 30,
+        title: 'Título pendiente (GkKRvE4JUSI)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'GkKRvE4JUSI'
+    },
+    {
+        id: 31,
+        title: 'Título pendiente (CjsmAqunyuQ)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'CjsmAqunyuQ'
+    },
+    {
+        id: 32,
+        title: 'Título pendiente (987HaZ_RduY)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: '987HaZ_RduY'
+    },
+    {
+        id: 33,
+        title: 'Título pendiente (mclqwyG7PG8)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'mclqwyG7PG8'
+    },
+    {
+        id: 34,
+        title: 'Título pendiente (7ky67_18XzQ)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: '7ky67_18XzQ'
+    },
+    {
+        id: 35,
+        title: 'Título pendiente (aiQH-RcV1Do)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'aiQH-RcV1Do'
+    },
+    {
+        id: 36,
+        title: 'Título pendiente (JPabu6MeClE)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'JPabu6MeClE'
+    },
+    {
+        id: 37,
+        title: 'Título pendiente (HhzH9eald00)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'HhzH9eald00'
+    },
+    {
+        id: 38,
+        title: 'Título pendiente (IRGnPiqRWVY)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'IRGnPiqRWVY'
+    },
+    {
+        id: 39,
+        title: 'Título pendiente (-DUT11p9L_Y)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: '-DUT11p9L_Y'
+    },
+    {
+        id: 40,
+        title: 'Título pendiente (YSERvOkHS1A)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'YSERvOkHS1A'
+    },
+    {
+        id: 41,
+        title: 'Título pendiente (rjkoVvGFwfU)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'rjkoVvGFwfU'
+    },
+    {
+        id: 42,
+        title: 'Título pendiente (bK76eHBb4I0)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'bK76eHBb4I0'
+    },
+    {
+        id: 43,
+        title: 'Título pendiente (t71RmkWs76s)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 't71RmkWs76s'
+    },
+    {
+        id: 44,
+        title: 'Título pendiente (NvQqHzqClf0)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'NvQqHzqClf0'
+    },
+    {
+        id: 45,
+        title: 'Título pendiente (xvquhFB2fFg)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'xvquhFB2fFg'
+    },
+    {
+        id: 46,
+        title: 'Título pendiente (gUmntRUC7ZU)',
+        category: 'General',
+        description: 'Película o video agregado desde YouTube.',
+        youtubeId: 'gUmntRUC7ZU'
     }
 ];
 
-window.ANGEL_CATALOG = normalizarCatalogoYT(CATALOGO_BASE);
+const STORAGE_PELICULAS_KEY = 'angel_netflix_custom_movies';
 
-window.ANGEL_BANNERS = normalizarCatalogoYT([
-    {
-        title: 'Stranger Things',
-        description: 'Cuando un niño desaparece, un pueblo descubre secretos sobrenaturales.',
-        image: 'https://image.tmdb.org/t/p/original/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg',
-        youtubeId: 'soeHuQVpOOg'
+function obtenerPeliculasGuardadas() {
+    try {
+        const raw = localStorage.getItem(STORAGE_PELICULAS_KEY);
+        return raw ? JSON.parse(raw) : [];
+    } catch {
+        return [];
     }
-]).concat(window.ANGEL_CATALOG);
+}
+
+function refrescarCatalogos() {
+    const extras = obtenerPeliculasGuardadas();
+    const combinados = [...CATALOGO_BASE, ...extras];
+
+    window.ANGEL_CATALOG = normalizarCatalogoYT(combinados);
+    window.ANGEL_BANNERS = normalizarCatalogoYT([
+        {
+            id: 'banner-st',
+            title: 'Stranger Things',
+            category: 'Ciencia Ficción',
+            description: 'Cuando un niño desaparece, un pueblo descubre secretos sobrenaturales.',
+            image: 'https://image.tmdb.org/t/p/original/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg',
+            youtubeId: 'soeHuQVpOOg'
+        }
+    ]).concat(window.ANGEL_CATALOG);
+
+    return window.ANGEL_CATALOG;
+}
+
+function agregarPelicula(nuevaPelicula) {
+    if (!nuevaPelicula || !nuevaPelicula.title || !nuevaPelicula.title.trim()) {
+        throw new Error('El título de la película es obligatorio.');
+    }
+
+    const extras = obtenerPeliculasGuardadas();
+    const maxId = [
+        ...CATALOGO_BASE.map((p) => Number(p.id) || 0),
+        ...extras.map((p) => Number(p.id) || 0)
+    ].reduce((a, b) => Math.max(a, b), 0);
+
+    const peliculaLista = {
+        id: maxId + 1,
+        title: nuevaPelicula.title.trim(),
+        category: (nuevaPelicula.category || 'General').trim(),
+        description: (nuevaPelicula.description || '').trim(),
+        youtubeId: (nuevaPelicula.youtubeId || '').trim(),
+        videoUrl: (nuevaPelicula.videoUrl || '').trim(),
+        image: (nuevaPelicula.image || '').trim()
+    };
+
+    extras.push(peliculaLista);
+    localStorage.setItem(STORAGE_PELICULAS_KEY, JSON.stringify(extras));
+    refrescarCatalogos();
+
+    return window.ANGEL_CATALOG[window.ANGEL_CATALOG.length - 1];
+}
+
+refrescarCatalogos();
+window.agregarPelicula = agregarPelicula;
+window.refrescarCatalogos = refrescarCatalogos;
