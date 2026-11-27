@@ -1,27 +1,124 @@
-window.ANGEL_CATALOG = [
-    { id: 1, title: 'Mi Película', category: 'Acción', image: '../imagenes/mi_pelicula.jpg', description: 'Descripción de mi película personalizada.', video: 'https://www.youtube.com/embed/0pdqf4P9MB8' },
-    { id: 2, title: 'Misión Imposible', category: 'Acción', image: '../imagenes/Imagen de WhatsApp 2025-06-25 a las 23.15.34_ec934f76.jpg', description: 'Ethan Hunt y su equipo enfrentan su misión más peligrosa.', video: 'https://www.youtube.com/watch?v=hL_nNEPIAcE' },
-    { id: 3, title: 'John Wick', category: 'Acción', image: 'https://image.tmdb.org/t/p/w500/ziEuG1essDuWuC5lpWUaw1uXY2O.jpg', description: 'Un exasesino busca venganza.', video: 'https://www.youtube.com/embed/2AUmvWm5ZDQ' },
-    { id: 4, title: 'Mi Gallo', category: 'Narco', image: 'https://img.youtube.com/vi/ItxVaJ6-R5Y/hqdefault.jpg', description: 'Un hombre humilde se enfrenta a problemas familiares tras el diagnóstico de cáncer de su esposa.', video: 'https://www.youtube.com/embed/ItxVaJ6-R5Y' },
-    { id: 5, title: 'El Cartel de Tijuana 3', category: 'Narco', image: 'https://img.youtube.com/vi/zlGuUADQ8i4/hqdefault.jpg', description: 'Tras la captura de un importante mafioso, su socio decide retomar el poder.', video: 'https://www.youtube.com/embed/zlGuUADQ8i4' },
-    { id: 6, title: 'Los Dos Plebes', category: 'Narco', image: 'https://img.youtube.com/vi/jAvy_oDVTHA/hqdefault.jpg', description: 'Una película con las actuaciones de Oscar Lopez y John Solis.', video: 'https://www.youtube.com/embed/jAvy_oDVTHA' },
-    { id: 7, title: 'Superbad', category: 'Comedia', image: 'https://image.tmdb.org/t/p/w500/ek8e8txUyUwd2BNqj6lFEerJfbq.jpg', description: 'Dos amigos buscan la mejor fiesta.', video: 'https://www.youtube.com/embed/4eaZ_48ZYog' },
-    { id: 8, title: 'The Mask', category: 'Comedia', image: 'https://image.tmdb.org/t/p/w500/6Biy7R9LfumYshur3YKhpj56MpB.jpg', description: 'Un hombre común encuentra una máscara mágica.', video: 'https://www.youtube.com/embed/hOqVRwGVUkA' },
-    { id: 9, title: 'El Conjuro', category: 'Terror', image: 'https://image.tmdb.org/t/p/w500/wVYREutTvI2tmxr6ujrHT704wGF.jpg', description: 'Basada en hechos reales de los Warren.', video: 'https://www.youtube.com/embed/k10ETZ41q5o' },
-    { id: 10, title: 'La La Land', category: 'Romance', image: 'https://image.tmdb.org/t/p/w500/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg', description: 'Un musical sobre sueños y amor.', video: 'https://www.youtube.com/embed/0pdqf4P9MB8' },
-    { id: 11, title: 'Me dieron en Adopción Huérfana y así terminé en México', category: 'Podcast', image: 'https://img.youtube.com/vi/mRUkL_OQ2bg/hqdefault.jpg', description: 'Una historia impactante de vida.', video: 'https://www.youtube.com/embed/mRUkL_OQ2bg' },
-    { id: 12, title: 'SECRETOS DEL GYM Y SUS MUJERES', category: 'Podcast', image: 'https://img.youtube.com/vi/d2yFzVUcIIo/hqdefault.jpg', description: 'Un podcast sobre la vida y sus desafíos.', video: 'https://www.youtube.com/embed/d2yFzVUcIIo' },
-    { id: 13, title: 'Tommy Shelby: un ejemplo o una señal de alerta', category: 'Podcast', image: 'https://img.youtube.com/vi/3KlmcX9rWoQ/hqdefault.jpg', description: 'Análisis profundo de un personaje icónico.', video: 'https://www.youtube.com/embed/3KlmcX9rWoQ' },
-    { id: 14, title: 'OcraN Leaks: La Gran Estafa', category: 'Podcast', image: 'https://img.youtube.com/vi/nnRpP5aHc4I/hqdefault.jpg', description: 'Podcast sobre corrupción y escándalos.', video: 'https://www.youtube.com/embed/nnRpP5aHc4I' },
-    { id: 15, title: 'Las verdades que México no quiere reconocer', category: 'Podcast', image: 'https://img.youtube.com/vi/SpJLD4nbRko/hqdefault.jpg', description: 'Historias misteriosas y leyendas.', video: 'https://www.youtube.com/embed/u1ZFlk5x60I' },
-    { id: 16, title: 'Esto ganan los Punteros', category: 'Podcast', image: 'https://img.youtube.com/vi/u1ZFlk5x60I/hqdefault.jpg', description: 'Un viaje al mundo de la mafia y sus secretos.', video: 'https://www.youtube.com/embed/DEF456UVW' },
-    { id: 17, title: 'Reportero grosero', category: 'Podcast', image: 'https://img.youtube.com/vi/5vMiLpIf--c/hqdefault.jpg', description: 'Relatos paranormales reales.', video: 'https://www.youtube.com/embed/5vMiLpIf--c' },
-    { id: 18, title: 'Paranormal sin Filtros', category: 'Podcast', image: 'https://img.youtube.com/vi/-xc2QQRui9U/hqdefault.jpg', description: 'Testimonios de encuentros sobrenaturales.', video: 'https://www.youtube.com/embed/-xc2QQRui9U' },
-    { id: 19, title: 'El Ozz: Conversaciones Nocturnas', category: 'Podcast', image: 'https://img.youtube.com/vi/IkVYxdnO2HM/hqdefault.jpg', description: 'Charlas profundas con invitados especiales.', video: 'https://www.youtube.com/embed/IkVYxdnO2HM' },
-    { id: 20, title: 'Noche de 15 Años en el Amole Guasave', category: 'Música', image: 'https://img.youtube.com/vi/mpKakwg1ASY/hqdefault.jpg', description: 'Una recopilación de los mejores éxitos.', video: 'https://www.youtube.com/embed/mpKakwg1ASY' },
-    { id: 21, title: 'Día del Estudiante Upes 2025', category: 'Música', image: 'https://img.youtube.com/vi/OzK9o6yZnB0/hqdefault.jpg', description: 'Una mezcla de los mejores corridos tumbados.', video: 'https://www.youtube.com/embed/OzK9o6yZnB0' },
-    { id: 22, title: 'Fragmento de 2 Grandes Temas', category: 'Música', image: 'https://img.youtube.com/vi/hL_nNEPIAcE/hqdefault.jpg', description: 'Una recopilación de los mejores éxitos.', video: 'https://www.youtube.com/embed/hL_nNEPIAcE' },
-    { id: 23, title: 'Isn’t She Lovely - Crazy Piano Version', category: 'Música', image: 'https://img.youtube.com/vi/0sFB3vrOhko/hqdefault.jpg', description: 'Una versión especial de un clásico.', video: 'https://www.youtube.com/embed/0sFB3vrOhko' },
-    { id: 24, title: 'Rigo Tovar: El Sirenito', category: 'Música', image: 'https://img.youtube.com/vi/gghZsSbwYYU/hqdefault.jpg', description: 'Rigo Tovar el sirenito.', video: 'https://www.youtube.com/embed/gghZsSbwYYU' }
+function urlEmbedYouTube(youtubeId) {
+    return `https://www.youtube.com/embed/${youtubeId}`;
+}
+
+function miniaturaYouTube(youtubeId) {
+    return `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+}
+
+function normalizarCatalogoYT(items) {
+    return items.map((item) => {
+        const ytId = item.youtubeId || '';
+        return {
+            ...item,
+            youtubeId: ytId,
+            image: item.image || (ytId ? miniaturaYouTube(ytId) : 'imagenes/movieposter.jpg'),
+            video: ytId ? urlEmbedYouTube(ytId) : item.video
+        };
+    });
+}
+
+const CATALOGO_BASE = [
+    {
+        id: 1,
+        title: 'Tocó Fondo en Año Nuevo… y Decidió Recuperar a Su Hijo y Su Vida',
+        category: 'Drama',
+        description: 'Película completa de drama disponible en YouTube.',
+        youtubeId: '1ZV8npcsJ4I'
+    },
+    {
+        id: 2,
+        title: 'Prueba de Fuego',
+        category: 'Acción',
+        description: 'Película de acción completa en español latino sobre bomberos paracaidistas enfrentando incendios forestales extremos.',
+        youtubeId: 'YrMiIC9OcZ0'
+    },
+    {
+        id: 3,
+        title: 'Huracán',
+        category: 'Drama',
+        description: 'Una historia que atrapa hasta el final, basada en el boxeador Rubin Hurricane Carter y su lucha por la libertad.',
+        youtubeId: 'Y_5dwSHQxBw'
+    },
+    {
+        id: 4,
+        title: 'Becas y Barba de Cristal',
+        category: 'Drama',
+        description: 'Película completa en español latino protagonizada por Val Kilmer.',
+        youtubeId: 'tT0nMugAUEg'
+    },
+    {
+        id: 5,
+        title: 'Salió del hospital y nadie fue por él',
+        category: 'Drama',
+        description: 'Un drama sobre un niño que sale del hospital y espera poder volver con su mamá.',
+        youtubeId: 'gI-kZ5q723U'
+    },
+    {
+        id: 6,
+        title: 'El Gángster, el Policía y el Diablo',
+        category: 'Acción',
+        description: 'Un detective y un jefe criminal forman una alianza para atrapar a un asesino serial.',
+        youtubeId: 'L10tsbZpHVc'
+    },
+    {
+        id: 7,
+        title: 'Creyó Haber Encontrado Su Navidad Perfecta… Hasta Que Volvió la Ex',
+        category: 'Romance',
+        description: 'Una organizadora de eventos navideños conoce a un padre soltero y su hijo, pero todo se complica cuando regresa la madre del niño.',
+        youtubeId: 'prLSLLGvi_8'
+    },
+    {
+        id: 8,
+        title: 'Hotel Transylvania 2',
+        category: 'Animación',
+        description: 'Película animada completa en español latino HD.',
+        youtubeId: 'WeUclk49FXU'
+    },
+    {
+        id: 9,
+        title: 'La Princesa y el Guardaespaldas',
+        category: 'Romance',
+        description: 'Una mujer común descubre que es heredera real y recibe la protección de un guardaespaldas.',
+        youtubeId: 'A2_WB3VSVzM'
+    },
+    {
+        id: 10,
+        title: 'Gran Stan: A Prueba de Hombres',
+        category: 'Comedia',
+        description: 'Comedia protagonizada por Rob Schneider sobre un estafador que entrena artes marciales antes de entrar a prisión.',
+        youtubeId: 'S8p3pEGqJIg'
+    },
+    {
+        id: 11,
+        title: 'Plan de Escape',
+        category: 'Acción',
+        description: 'Película de acción con Sylvester Stallone y Arnold Schwarzenegger, doblada al español.',
+        youtubeId: 'a-o3suDHiE0'
+    },
+    {
+        id: 12,
+        title: 'Las nuevas desventuras de Cliff Booth (2026)',
+        category: 'Especial',
+        description: 'Contenido de análisis/especial en español sobre la historia de Cliff Booth. Verifica que sea el contenido que quieres mostrar como película.',
+        youtubeId: '_RleToK1lIM'
+    },
+    {
+        id: 13,
+        title: 'Hombres de Negro 2',
+        category: 'Ciencia Ficción',
+        description: 'Película completa en español latino de acción y ciencia ficción con aliens y agentes secretos.',
+        youtubeId: 't6vaVHCRQnA'
+    }
 ];
-window.ANGEL_BANNERS = [{ title: 'Stranger Things', description: 'Cuando un niño desaparece, un pueblo descubre secretos sobrenaturales.', image: 'https://image.tmdb.org/t/p/original/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg', video: 'https://www.youtube.com/embed/soeHuQVpOOg' }].concat(window.ANGEL_CATALOG);
+
+window.ANGEL_CATALOG = normalizarCatalogoYT(CATALOGO_BASE);
+
+window.ANGEL_BANNERS = normalizarCatalogoYT([
+    {
+        title: 'Stranger Things',
+        description: 'Cuando un niño desaparece, un pueblo descubre secretos sobrenaturales.',
+        image: 'https://image.tmdb.org/t/p/original/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg',
+        youtubeId: 'soeHuQVpOOg'
+    }
+]).concat(window.ANGEL_CATALOG);
