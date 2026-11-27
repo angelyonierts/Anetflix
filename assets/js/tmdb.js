@@ -2,12 +2,98 @@ const TMDB_API_KEY = '4f7d36300e745a3e7cb6ff6f5078c29b';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 const TMDB_IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
+const PELICULAS_YOUTUBE_EXTRA = [
+    {
+        id: 'yt-1',
+        title: 'Tocó Fondo en Año Nuevo… y Decidió Recuperar a Su Hijo y Su Vida',
+        youtubeId: '1ZV8npcsJ4I'
+    },
+    {
+        id: 'yt-2',
+        title: 'Prueba de Fuego',
+        youtubeId: 'YrMiIC9OcZ0'
+    },
+    {
+        id: 'yt-3',
+        title: 'Huracán',
+        youtubeId: 'Y_5dwSHQxBw'
+    },
+    {
+        id: 'yt-4',
+        title: 'Becas y Barba de Cristal',
+        youtubeId: 'tT0nMugAUEg'
+    },
+    {
+        id: 'yt-5',
+        title: 'Salió del hospital y nadie fue por él',
+        youtubeId: 'gI-kZ5q723U'
+    },
+    {
+        id: 'yt-6',
+        title: 'El Gángster, el Policía y el Diablo',
+        youtubeId: 'L10tsbZpHVc'
+    },
+    {
+        id: 'yt-7',
+        title: 'Creyó Haber Encontrado Su Navidad Perfecta… Hasta Que Volvió la Ex',
+        youtubeId: 'prLSLLGvi_8'
+    },
+    {
+        id: 'yt-8',
+        title: 'Hotel Transylvania 2',
+        youtubeId: 'WeUclk49FXU'
+    },
+    {
+        id: 'yt-9',
+        title: 'La Princesa y el Guardaespaldas',
+        youtubeId: 'A2_WB3VSVzM'
+    },
+    {
+        id: 'yt-10',
+        title: 'Gran Stan: A Prueba de Hombres',
+        youtubeId: 'S8p3pEGqJIg'
+    },
+    {
+        id: 'yt-11',
+        title: 'Plan de Escape',
+        youtubeId: 'a-o3suDHiE0'
+    },
+    {
+        id: 'yt-12',
+        title: 'Las nuevas desventuras de Cliff Booth (2026)',
+        youtubeId: '_RleToK1lIM'
+    },
+    {
+        id: 'yt-13',
+        title: 'Hombres de Negro 2',
+        youtubeId: 't6vaVHCRQnA'
+    }
+];
+
+function reproducirYouTubeDirecto(youtubeId) {
+    const modal = document.getElementById('tmdb-video-modal');
+    const iframe = document.getElementById('tmdb-video-frame');
+    if (!modal || !iframe || !youtubeId) return;
+
+    iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+}
+
 async function cargarSugerencias(movieId = 569094, tituloBase = '') {
     const contenedor = document.getElementById('tmdb-recommendations');
     const encabezado = document.getElementById('tmdb-heading');
     if (!contenedor) return;
 
     contenedor.innerHTML = '<p class="tmdb-status">Cargando sugerencias...</p>';
+
+    const extrasFormateados = PELICULAS_YOUTUBE_EXTRA.map((item) => ({
+        id: item.id,
+        title: item.title,
+        youtubeId: item.youtubeId,
+        posterUrl: item.poster || `https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg`,
+        esYouTube: true
+    }));
 
     try {
         const url = `${TMDB_BASE_URL}/movie/${movieId}/recommendations?api_key=${TMDB_API_KEY}&language=es-MX&page=1`;
@@ -19,7 +105,19 @@ async function cargarSugerencias(movieId = 569094, tituloBase = '') {
 
         const data = await res.json();
 
-        if (!data.results || data.results.length === 0) {
+        const tmdbItems = (data.results || []).slice(0, 12).map((peli) => ({
+            id: peli.id,
+            title: peli.title || 'Sin título',
+            youtubeId: '',
+            posterUrl: peli.poster_path
+                ? `${TMDB_IMG_URL}${peli.poster_path}`
+                : 'imagenes/movieposter.jpg',
+            esYouTube: false
+        }));
+
+        const combinados = [...extrasFormateados, ...tmdbItems];
+
+        if (combinados.length === 0) {
             contenedor.innerHTML = '<p class="tmdb-status">No hay sugerencias disponibles para este título.</p>';
             return;
         }
@@ -28,32 +126,65 @@ async function cargarSugerencias(movieId = 569094, tituloBase = '') {
             encabezado.textContent = `Porque viste "${tituloBase}"`;
         }
 
-        contenedor.innerHTML = data.results.slice(0, 12).map(peli => {
-            const poster = peli.poster_path
-                ? `${TMDB_IMG_URL}${peli.poster_path}`
-                : 'imagenes/movieposter.jpg';
-            const tituloSeguro = (peli.title || 'Sin título').replace(/"/g, '&quot;');
-
+        contenedor.innerHTML = combinados.map((item) => {
+            const tituloSeguro = item.title.replace(/"/g, '&quot;');
             return `
-                <article class="tmdb-card" tabindex="0" data-id="${peli.id}" data-title="${tituloSeguro}">
-                    <img src="${poster}" alt="${tituloSeguro}" loading="lazy">
-                    <h3>${peli.title}</h3>
+                <article
+                    class="tmdb-card"
+                    tabindex="0"
+                    data-id="${item.id}"
+                    data-title="${tituloSeguro}"
+                    data-youtube-id="${item.youtubeId}"
+                >
+                    <img src="${item.posterUrl}" alt="${tituloSeguro}" loading="lazy">
+                    <h3>${item.title}</h3>
                 </article>
             `;
         }).join('');
 
-        contenedor.querySelectorAll('.tmdb-card').forEach(card => {
+        contenedor.querySelectorAll('.tmdb-card').forEach((card) => {
             card.addEventListener('click', () => {
+                const ytId = card.dataset.youtubeId;
                 const id = card.dataset.id;
                 const titulo = card.dataset.title;
-                reproducirTrailerTMDB(id);
-                cargarSugerencias(id, titulo);
+
+                if (ytId) {
+                    reproducirYouTubeDirecto(ytId);
+                } else {
+                    reproducirTrailerTMDB(id);
+                    cargarSugerencias(id, titulo);
+                }
             });
         });
 
     } catch (error) {
         console.error('Error TMDB:', error);
-        contenedor.innerHTML = `<p class="tmdb-status">Error al cargar recomendaciones (${error.message}).</p>`;
+
+        if (extrasFormateados.length > 0) {
+            contenedor.innerHTML = extrasFormateados.map((item) => {
+                const tituloSeguro = item.title.replace(/"/g, '&quot;');
+                return `
+                    <article
+                        class="tmdb-card"
+                        tabindex="0"
+                        data-id="${item.id}"
+                        data-title="${tituloSeguro}"
+                        data-youtube-id="${item.youtubeId}"
+                    >
+                        <img src="${item.posterUrl}" alt="${tituloSeguro}" loading="lazy">
+                        <h3>${item.title}</h3>
+                    </article>
+                `;
+            }).join('');
+
+            contenedor.querySelectorAll('.tmdb-card').forEach((card) => {
+                card.addEventListener('click', () => {
+                    reproducirYouTubeDirecto(card.dataset.youtubeId);
+                });
+            });
+        } else {
+            contenedor.innerHTML = `<p class="tmdb-status">Error al cargar recomendaciones (${error.message}).</p>`;
+        }
     }
 }
 
@@ -74,9 +205,7 @@ async function reproducirTrailerTMDB(movieId) {
         }
 
         if (video) {
-            iframe.src = `https://www.youtube.com/embed/${video.key}?autoplay=1`;
-            modal.classList.add('is-open');
-            modal.setAttribute('aria-hidden', 'false');
+            reproducirYouTubeDirecto(video.key);
         } else {
             alert('Este título no tiene tráiler disponible en YouTube.');
         }
@@ -85,9 +214,8 @@ async function reproducirTrailerTMDB(movieId) {
     }
 }
 
-// Botones de categoría con clase .is-active
 const chips = document.querySelectorAll('.tmdb-chip');
-chips.forEach(btn => {
+chips.forEach((btn) => {
     btn.addEventListener('click', () => {
         chips.forEach(c => c.classList.remove('is-active'));
         btn.classList.add('is-active');
@@ -96,11 +224,11 @@ chips.forEach(btn => {
         if (encabezado) {
             encabezado.textContent = `Quizás te pueda gustar · ${btn.textContent}`;
         }
+
         cargarSugerencias(btn.dataset.movie);
     });
 });
 
-// Cerrar el modal quitando la clase .is-open
 function cerrarModalTMDB() {
     const modal = document.getElementById('tmdb-video-modal');
     const iframe = document.getElementById('tmdb-video-frame');
@@ -116,6 +244,5 @@ document.getElementById('tmdb-video-modal')?.addEventListener('click', (e) => {
     if (e.target.id === 'tmdb-video-modal') cerrarModalTMDB();
 });
 
-// Marcar el primer filtro activo y cargar películas al abrir
 if (chips.length > 0) chips[0].classList.add('is-active');
 cargarSugerencias();
